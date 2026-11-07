@@ -7,9 +7,9 @@
  * patches the class once, before Leantime builds the chart, and pins the three
  * numbers that decide the geometry:
  *
- *   bar_height        40 -> 32   bar thickness
- *   padding           20 -> 6    gap under each bar (row = bar + padding)
- *   bar_corner_radius 10 -> 2    corner rounding of the bars
+ *   bar_height        40 -> 26   bar thickness
+ *   padding           20 ->  4   gap under each bar (row pitch = bar + padding)
+ *   bar_corner_radius 10 ->  2   corner rounding of the bars
  *
  * Everything else (bar colour, grid, today marker) still comes from
  * gantt-overwrites.css. Delete this file to fall back to Leantime's defaults.
@@ -18,8 +18,8 @@
     'use strict';
 
     var FLAT = {
-        bar_height: 32,
-        padding: 6,
+        bar_height: 26,
+        padding: 4,
         bar_corner_radius: 2
     };
 
@@ -54,7 +54,25 @@
     }
 
     if (!patch()) {
-        // The bundle order can change; try again once the DOM is ready.
-        document.addEventListener('DOMContentLoaded', patch);
+        // The Gantt bundle may run after this file (deferred), and by then
+        // Leantime has already built the chart. Catch the assignment itself so
+        // the class is wrapped before the first `new Gantt(...)`.
+        var current;
+
+        try {
+            Object.defineProperty(window, 'Gantt', {
+                configurable: true,
+                get: function () {
+                    return current;
+                },
+                set: function (value) {
+                    current = value;
+                    patch();
+                }
+            });
+        } catch (e) {
+            // Non-configurable global: last resort, patch once the DOM is ready.
+            document.addEventListener('DOMContentLoaded', patch);
+        }
     }
 })();

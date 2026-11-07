@@ -264,13 +264,13 @@ body table.ticketTable .ticketDropdown > a.dropdown-toggle .fa-caret-down {
 
 body .gantt .bar-label {
     font-size: 17px;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 body .gantt .bar-label.big {
     fill: var(--primary-font-color);
     font-size: 17px;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 /* Axis labels: same weight, one step smaller than the bar labels. */
@@ -291,4 +291,18 @@ body .gantt .today-highlight-label-bg,
 body .gantt .today-highlight-label {
     rx: 2px;
     ry: 2px;
+}
+
+/* Vertical time grid: the app draws the ticks in solid black at 0.2-0.4px, which
+   reads as a hard grey band. Take them to a hairline of text colour instead —
+   light enough to sit behind the bars, still 1 device pixel so nothing blurs. */
+body .gantt .tick {
+    stroke: color-mix(in srgb, var(--primary-font-color) 9%, transparent) !important;
+    stroke-width: 1px !important;
+    shape-rendering: crispEdges;
+}
+
+body .gantt .tick.thick {
+    stroke: color-mix(in srgb, var(--primary-font-color) 14%, transparent) !important;
+    stroke-width: 1px !important;
 }
