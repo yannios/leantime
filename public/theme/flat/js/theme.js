@@ -13,6 +13,9 @@
  *
  * Everything else (bar colour, grid, today marker) still comes from
  * gantt-overwrites.css. Delete this file to fall back to Leantime's defaults.
+ *
+ * The filename matters: Theme::getJsUrl() resolves js/theme.js (or theme.min.js)
+ * from the active theme — DEFAULT_JS is "theme", not "default".
  */
 (function () {
     'use strict';

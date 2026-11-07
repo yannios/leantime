@@ -23,6 +23,7 @@ theme.ini          name/description/logo/colours/capabilities
 css/light.css      copy of the default theme's light sheet (base, unmodified)
 css/dark.css       copy of the default theme's dark sheet (base, unmodified)
 css/custom.css     this theme's overrides — loaded last by Theme::getCustomStyleUrl()
+js/theme.js        optional script — Theme::getJsUrl() looks for js/theme.js (or theme.min.js)
 ```
 
 The base sheets are copies so the theme is self-contained: `Theme::getStyleUrl()`
