@@ -7,9 +7,14 @@
  * patches the class once, before Leantime builds the chart, and pins the three
  * numbers that decide the geometry:
  *
- *   bar_height        40 -> 26   bar thickness
- *   padding           20 ->  4   gap under each bar (row pitch = bar + padding)
+ *   bar_height        40 -> 30   bar thickness
+ *   padding           20 -> 20   gap under each bar (row pitch = bar + padding = 50)
  *   bar_corner_radius 10 ->  2   corner rounding of the bars
+ *
+ * `padding` is deliberately left at 20: the chart starts its first row at
+ * `header_height + padding / 2` while the sticky header rect is
+ * `header_height + 10` tall. Any padding below 20 puts the first milestone
+ * underneath that header, which reads as a clipped first row.
  *
  * Everything else (bar colour, grid, today marker) still comes from
  * gantt-overwrites.css. Delete this file to fall back to Leantime's defaults.
@@ -21,8 +26,8 @@
     'use strict';
 
     var FLAT = {
-        bar_height: 26,
-        padding: 4,
+        bar_height: 30,
+        padding: 20,
         bar_corner_radius: 2
     };
 
