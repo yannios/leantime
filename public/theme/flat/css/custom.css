@@ -173,14 +173,19 @@ body .profileHandler.includeLogo img.logo {
    default control padding. Both are tightened here, so a task occupies exactly
    one line; long headlines are ellipsised. */
 
-body table.ticketTable td {
-    padding: 3px 8px;
+body table.ticketTable td,
+body .maincontentinner table.table td {
+    padding: 4px !important;
     vertical-align: middle;
+    /* Row rules: the app draws them at 8% of the text colour, which all but
+       disappears next to a chip. Lift them to a readable grey. */
+    border-bottom: 1px solid color-mix(in srgb, var(--primary-font-color) 20%, transparent) !important;
 }
 
 body table.ticketTable thead th {
-    padding: 5px 8px;
+    padding: 5px 6px;
     white-space: nowrap;
+    border-bottom: 1px solid color-mix(in srgb, var(--primary-font-color) 26%, transparent);
 }
 
 /* Title column: keep it on one line, hide the <br> that split the parent prefix
@@ -195,10 +200,13 @@ body table.ticketTable tbody td:nth-child(2) br {
     display: none;
 }
 
+/* The parent-task prefix keeps the headline's size and is lightened instead —
+   same line, same rhythm, visibly secondary. */
 body table.ticketTable tbody td:nth-child(2) small {
     display: inline;
-    font-size: 11px;
-    opacity: 0.75;
+    font-size: inherit;
+    font-weight: 300;
+    opacity: 0.6;
 }
 
 body table.ticketTable tbody td:nth-child(2) > a.ticketModal {
@@ -207,7 +215,7 @@ body table.ticketTable tbody td:nth-child(2) > a.ticketModal {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    vertical-align: bottom;
+    vertical-align: baseline;
 }
 
 /* The value chips (status, milestone, effort, priority, assignee, sprint). */
