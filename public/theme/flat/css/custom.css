@@ -11,6 +11,10 @@
  */
 
 :root {
+    /* Left navigation width — one number drives the panel, its pinned children
+       and the header spacer, so the top bar stays aligned with the panel. */
+    --flat-nav-width: 265px;
+
     /* --- corners: every surface collapses to a 2px hairline edge --- */
     --radius-xs: 2px;
     --radius-s: 2px;
@@ -103,16 +107,28 @@ body button.primary-btn {
 @media (min-width: 1024px) {
     body .mainwrapper .leftpanel,
     body .mainwrapper.menuopen .leftpanel {
-        width: 265px;
-        max-width: 265px;
+        width: var(--flat-nav-width);
+        max-width: var(--flat-nav-width);
     }
 
     body .leftmenu .fixedMenuPoint {
-        width: 255px;
+        width: calc(var(--flat-nav-width) - 10px);
     }
 
     body .leftmenu .projectselector ul.selectorList li.fixedBottom {
-        width: 265px;
+        width: var(--flat-nav-width);
+    }
+
+    /* The header's work-modes menu (project selector, "Moj rad", "Tvrtka") is
+       laid out after .header .logo, which carries a fixed 240px width — that is
+       what used to line it up with the old 215px panel. Re-point the spacer at
+       the panel's right edge (panel margin 10px + panel width) so the two stay
+       aligned whatever the panel width is. */
+    body .mainwrapper .header .logo {
+        box-sizing: border-box;
+        margin-left: 0;
+        padding-left: 55px;
+        width: calc(var(--flat-nav-width) + 10px);
     }
 }
 
@@ -140,3 +156,74 @@ body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle:first-child 
     margin-top: 6px;
 }
 
+
+/* --- Header: the company logo next to the avatar is a wide wordmark ---------
+   The app's own `.header .userloggedinfo img { border-radius:50% }` catches it
+   and turns a 99x18 image into a lozenge. The company-logo variant is meant to
+   stay a wordmark, so pin its corners. */
+body .header .userloggedinfo img.logo,
+body .userinfo .profileHandler img.logo,
+body .profileHandler.includeLogo img.logo {
+    border-radius: 0 !important;
+}
+
+/* --- Compact to-do tables: one line per task --------------------------------
+   Row height was driven by two things: the Title cell wrapping onto two or three
+   lines (a parent-task prefix plus the headline) and the chips carrying the
+   default control padding. Both are tightened here, so a task occupies exactly
+   one line; long headlines are ellipsised. */
+
+body table.ticketTable td {
+    padding: 3px 8px;
+    vertical-align: middle;
+}
+
+body table.ticketTable thead th {
+    padding: 5px 8px;
+    white-space: nowrap;
+}
+
+/* Title column: keep it on one line, hide the <br> that split the parent prefix
+   from the headline, and cut long headlines with an ellipsis. */
+body table.ticketTable tbody td:nth-child(2) {
+    max-width: 430px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+body table.ticketTable tbody td:nth-child(2) br {
+    display: none;
+}
+
+body table.ticketTable tbody td:nth-child(2) small {
+    display: inline;
+    font-size: 11px;
+    opacity: 0.75;
+}
+
+body table.ticketTable tbody td:nth-child(2) > a.ticketModal {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+}
+
+/* The value chips (status, milestone, effort, priority, assignee, sprint). */
+body table.ticketTable .ticketDropdown {
+    margin: 0;
+    line-height: 1;
+}
+
+body table.ticketTable .ticketDropdown > a.dropdown-toggle {
+    padding: 2px 8px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+body table.ticketTable .ticketDropdown > a.dropdown-toggle .fa-caret-down {
+    font-size: 10px;
+    opacity: 0.7;
+}
