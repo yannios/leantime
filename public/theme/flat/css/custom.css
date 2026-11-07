@@ -255,3 +255,40 @@ body table.ticketTable .ticketDropdown > a.dropdown-toggle .fa-caret-down {
     font-size: 10px;
     opacity: 0.7;
 }
+
+/* --- Timeline (milestones / roadmap) ---------------------------------------
+   The chart is an SVG built by frappe-gantt: bar geometry (height, gap, corner
+   radius) comes from JS — see the theme's js/default.js — while the label type
+   and the bar corners are set here. SVG presentation attributes lose to CSS, so
+   rx/ry override the radius the chart writes into every rect. */
+
+body .gantt .bar-label {
+    font-size: 17px;
+    font-weight: 400;
+}
+
+body .gantt .bar-label.big {
+    fill: var(--primary-font-color);
+    font-size: 17px;
+    font-weight: 400;
+}
+
+/* Axis labels: same weight, one step smaller than the bar labels. */
+body .gantt .upper-text,
+body .gantt .lower-text {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+body .gantt .bar,
+body .gantt .bar-progress,
+body .gantt .bar-wrapper .bar {
+    rx: 2px;
+    ry: 2px;
+}
+
+body .gantt .today-highlight-label-bg,
+body .gantt .today-highlight-label {
+    rx: 2px;
+    ry: 2px;
+}
