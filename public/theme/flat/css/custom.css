@@ -92,3 +92,51 @@ body input.primary-btn,
 body button.primary-btn {
     padding: 7px 14px;
 }
+
+/* --- Left navigation -------------------------------------------------------
+   Wider panel, 17px entries, tighter rows inside a group and a clear gap
+   between groups. .leftpanel floats (structure.css: width 240px, the open
+   state in nav.css pins 215px) so widening it simply moves the content over;
+   only the fixed bottom block (.fixedMenuPoint) and the project selector's
+   pinned row need the same width, since they are position:fixed/fixed-bottom. */
+
+@media (min-width: 1024px) {
+    body .mainwrapper .leftpanel,
+    body .mainwrapper.menuopen .leftpanel {
+        width: 265px;
+        max-width: 265px;
+    }
+
+    body .leftmenu .fixedMenuPoint {
+        width: 255px;
+    }
+
+    body .leftmenu .projectselector ul.selectorList li.fixedBottom {
+        width: 265px;
+    }
+}
+
+/* Group entries (one per group: IZVEDBA, PROMIŠLJANJE, ...). */
+body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle a {
+    font-size: 14px;
+    padding: 6px 8px 6px 10px;
+}
+
+/* Items inside a group: the larger type, a tight row. */
+body .leftmenu .nav-tabs.nav-stacked .dropdown ul li a {
+    font-size: 17px;
+    line-height: 1.3;
+    padding: 4px 15px;
+}
+
+/* Gap between groups: the group header carries the top margin, so the gap sits
+   above the header and not inside the list. */
+body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle {
+    margin-top: 22px;
+}
+
+body .leftmenu .nav-tabs.nav-stacked > li.dropdown > ul.submenu:first-of-type > li.submenuToggle:first-child,
+body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle:first-child {
+    margin-top: 6px;
+}
+
