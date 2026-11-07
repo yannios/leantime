@@ -177,6 +177,7 @@ body table.ticketTable td,
 body .maincontentinner table.table td {
     padding: 4px !important;
     vertical-align: middle;
+    line-height: 1.3;
     /* Row rules: the app draws them at 8% of the text colour, which all but
        disappears next to a chip. Lift them to a readable grey. */
     border-bottom: 1px solid color-mix(in srgb, var(--primary-font-color) 20%, transparent) !important;
@@ -215,7 +216,26 @@ body table.ticketTable tbody td:nth-child(2) > a.ticketModal {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    vertical-align: baseline;
+    /* `overflow:hidden` makes an inline-block use its bottom edge as baseline,
+       which floated the headline below the parent-task prefix. Align on the
+       box centre instead, like every other cell element. */
+    vertical-align: middle;
+}
+
+/* A row with a parent task reads "... //Glavni projekt" once the <br> is gone —
+   give the headline a little air after the separator. */
+body table.ticketTable tbody td:nth-child(2) small ~ a.ticketModal {
+    margin-left: 6px;
+}
+
+/* One centring rule for everything that sits directly in a row cell: the
+   parent-task prefix, the headline, the value chips and the tag labels. */
+body table.ticketTable tbody td small,
+body table.ticketTable tbody td a,
+body table.ticketTable tbody td .label,
+body table.ticketTable tbody td .ticketDropdown,
+body table.ticketTable tbody td .dropdown {
+    vertical-align: middle;
 }
 
 /* The value chips (status, milestone, effort, priority, assignee, sprint). */
