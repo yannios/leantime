@@ -1,0 +1,94 @@
+/**
+ * Flat — minimal corners, larger type, quieter elevation.
+ *
+ * This file is loaded after the theme's own stylesheet (Theme::getCustomStyleUrl()
+ * emits it as the last <link> in the header), so plain rules here win by order.
+ * !important appears only in the corner sweep: the app and its legacy Bootstrap
+ * layer hardcode border-radius in roughly 500 rules, which no token reaches.
+ *
+ * Everything is expressed as design tokens where a token exists, so colour modes,
+ * fonts and company colours keep working exactly as before.
+ */
+
+:root {
+    /* --- corners: every surface collapses to a 2px hairline edge --- */
+    --radius-xs: 2px;
+    --radius-s: 2px;
+    --radius-m: 2px;
+    --radius-l: 2px;
+    --radius: 2px;
+    --radius-sm: 2px;
+    --radius-lg: 2px;
+    --element-radius: 2px;
+    --box-radius: 2px;
+    --box-radius-small: 2px;
+    --box-radius-large: 2px;
+    --card-radius: 2px;
+    --btn-radius: 2px;
+    --input-radius: 2px;
+    --modal-radius: 2px;
+    --badge-radius: 2px;
+    --radius-pill: 2px;
+    --progress-bar-radius: 2px;
+
+    /* --- type: one step up across the whole scale --- */
+    --base-font-size: 15px;
+    --font-size-m: var(--base-font-size);
+    --font-size-s: 13px;
+    --font-size-xs: 11px;
+    --font-size-l: 17px;
+    --font-size-xl: 19px;
+    --font-size-xxl: 21px;
+    --font-size-xxxl: 26px;
+
+    /* --- flatter elevation and roomier inputs --- */
+    --input-padding: 6px 12px;
+    --input-shadow: none;
+    --shadow-xs: none;
+    --shadow-s: 0 1px 1px rgba(0, 0, 0, 0.04);
+    --shadow-m: 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-l: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Normalise the corners the tokens cannot reach. */
+body *,
+body *::before,
+body *::after {
+    border-radius: 2px !important;
+}
+
+/* ...then put back the shapes that are round for a reason: faces, status dots,
+   toggle knobs, spinners and the cropper's slider thumb. */
+body img.lt-avatar,
+body .lt-avatar,
+body .kanban-indicator-avatar,
+body .compact-ticket-avatar img,
+body .header .userloggedinfo img,
+body .notificationDropdown .dropdown-menu li .notificationProfileImage img,
+body .commentImage img,
+body .rd-avatar,
+body .colorCircle,
+body .color-circle .color,
+body .indicatorCircle,
+body .lt-status-dot,
+body .lt-badge-dot,
+body .statusDot,
+body .compact-priority,
+body .selectable.circle .selectableContent,
+body .timerContainer .success-circle,
+body button.lt-info-tip,
+body input[type="radio"],
+body input[type="checkbox"].toggle:after,
+body .showMenuIndicator:after,
+body .ld,
+body .ld * {
+    border-radius: 50% !important;
+}
+
+/* Slightly more air around the primary controls now that the type is larger. */
+body .primary-btn,
+body input.primary-btn,
+body button.primary-btn {
+    padding: 7px 14px;
+}
