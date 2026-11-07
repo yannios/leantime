@@ -7,8 +7,8 @@
  * patches the class once, before Leantime builds the chart, and pins the three
  * numbers that decide the geometry:
  *
- *   bar_height        40 -> 30   bar thickness
- *   padding           20 -> 20   gap under each bar (row pitch = bar + padding = 50)
+ *   bar_height        40 -> 24   bar thickness
+ *   padding           20 -> 20   gap under each bar (row pitch = bar + padding = 44)
  *   bar_corner_radius 10 ->  2   corner rounding of the bars
  *
  * `padding` is deliberately left at 20: the chart starts its first row at
@@ -26,7 +26,7 @@
     'use strict';
 
     var FLAT = {
-        bar_height: 30,
+        bar_height: 24,
         padding: 20,
         bar_corner_radius: 2
     };
