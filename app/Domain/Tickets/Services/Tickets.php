@@ -419,6 +419,10 @@ class Tickets extends BaseService
                 && $key != 'currentClient'
                 && $key != 'sprint'
                 && $key != 'orderDirection'
+                // excludeType is not a filter field: it carries the view's own
+                // default (e.g. "milestone" on the to-do list), so counting it
+                // made the filter badge show 1 with nothing selected.
+                && $key != 'excludeType'
             ) {
                 if ($value != '') {
                     $count++;
