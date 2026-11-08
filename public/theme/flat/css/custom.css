@@ -306,3 +306,46 @@ body .gantt .tick.thick {
     stroke: color-mix(in srgb, var(--primary-font-color) 14%, transparent) !important;
     stroke-width: 1px !important;
 }
+
+/* --- Filters ---------------------------------------------------------------
+   The filter trigger carries a badge with the number of active filters. When it
+   is there the whole button goes dark red, so an active filter is visible
+   without opening the panel. */
+
+body .filterWrapper .viewDropDown button:has(.badge),
+body .filterWrapper .viewDropDown button.btn:has(.badge) {
+    background: var(--dark-red) !important;
+    border-color: var(--dark-red) !important;
+    color: #fff !important;
+}
+
+body .filterWrapper .viewDropDown button:has(.badge) .badge {
+    background: #fff;
+    color: var(--dark-red);
+}
+
+body .filterWrapper .viewDropDown button:has(.badge):hover {
+    background: color-mix(in srgb, var(--dark-red) 85%, #000) !important;
+}
+
+/* "Clear all filters" next to Search — hidden while nothing is filtered. */
+body #ticketSearch .flat-clear-filters {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 6px 12px;
+    border: 1px solid color-mix(in srgb, var(--primary-font-color) 25%, transparent);
+    border-radius: 2px;
+    color: var(--primary-font-color);
+    line-height: 20px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+body #ticketSearch .flat-clear-filters:hover {
+    background: var(--neutral-background);
+    text-decoration: none;
+}
+
+body .filterWrapper:not(:has(.badge)) #ticketSearch .flat-clear-filters {
+    display: none;
+}

@@ -1,5 +1,7 @@
 /**
- * Flat theme — timeline (Gantt) tuning.
+ * Flat theme — the two behaviours a stylesheet cannot express.
+ *
+ * 1. Timeline (Gantt) geometry.
  *
  * Row height in the timeline is not a CSS value: frappe-gantt computes
  * `bar_height + padding` in JS and writes it into the SVG as y/height
@@ -83,4 +85,58 @@
             document.addEventListener('DOMContentLoaded', patch);
         }
     }
+})();
+
+/**
+ * 2. "Clear all filters" button in the filter panel.
+ *
+ * The filter panel is one plain GET form (#ticketSearch) whose fields all live
+ * in the query string, so clearing is a navigation back to the same path without
+ * it. The button is only rendered visible by CSS when the panel shows a filter
+ * badge; here it just has to exist in the DOM, next to the Search button.
+ */
+(function () {
+    'use strict';
+
+    function clearLabel() {
+        try {
+            var t = window.leantime && window.leantime.i18n && window.leantime.i18n.__('buttons.clear');
+
+            if (t && t !== 'buttons.clear') {
+                return t;
+            }
+        } catch (e) {
+            // i18n not ready: fall through to the Croatian default.
+        }
+
+        return 'Očisti';
+    }
+
+    function inject() {
+        var form = document.getElementById('ticketSearch');
+
+        if (!form || form.querySelector('.flat-clear-filters')) {
+            return;
+        }
+
+        var submit = form.querySelector('input[type="submit"], button[type="submit"]');
+        var host = submit && submit.parentNode ? submit.parentNode : form;
+
+        var link = document.createElement('a');
+        link.className = 'flat-clear-filters';
+        link.href = window.location.pathname;
+        link.textContent = clearLabel();
+
+        host.appendChild(link);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', inject);
+    } else {
+        inject();
+    }
+
+    // Leantime swaps content with htmx and re-runs pages through soft reloads.
+    document.addEventListener('htmx:afterSwap', inject);
+    document.addEventListener('lt:softReload', inject);
 })();
