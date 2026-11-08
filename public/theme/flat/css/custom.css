@@ -349,3 +349,42 @@ body #ticketSearch .flat-clear-filters:hover {
 body .filterWrapper:not(:has(.badge)) #ticketSearch .flat-clear-filters {
     display: none;
 }
+
+/* --- DataTables footer (pagination / info) ---------------------------------
+   Leantime's DataTables DOM is `<"top">rt<"bottom"ilp><"clear">`, so the info,
+   length and pagination all live in one .bottom row. A legacy rule
+   (`.dataTables_paginate { margin:-25px 0 0 20px; position:relative }`) pulls
+   the pagination up over the last table rows instead of placing it in that row.
+   Lay the row out explicitly: info left, length centre, pagination right. */
+
+body .dataTables_wrapper .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    height: auto !important;
+    min-height: 34px;
+    padding: 4px 0 0 !important;
+}
+
+body .dataTables_wrapper .bottom .dataTables_info,
+body .dataTables_wrapper .bottom .dataTables_length,
+body .dataTables_wrapper .bottom .dataTables_paginate {
+    position: static !important;
+    inset: auto !important;
+    float: none !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 4px 0 !important;
+    clear: none !important;
+}
+
+body .dataTables_wrapper .bottom .dataTables_length {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+body .dataTables_wrapper .bottom .dataTables_paginate {
+    text-align: right;
+    white-space: nowrap;
+}
