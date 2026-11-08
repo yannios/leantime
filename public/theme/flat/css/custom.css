@@ -388,3 +388,14 @@ body .dataTables_wrapper .bottom .dataTables_paginate {
     text-align: right;
     white-space: nowrap;
 }
+
+/* The wrapper keeps a 20px bottom padding for the absolutely positioned footer;
+   now that the footer is back in flow that space is just dead air. */
+body .dataTables_wrapper {
+    padding-bottom: 0 !important;
+}
+
+body .dataTables_wrapper .bottom {
+    min-height: 0;
+    padding-top: 2px !important;
+}
