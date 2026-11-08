@@ -1757,6 +1757,76 @@ class Users extends BaseService
     }
 
     /**
+     * Creates a user directly, with a password the admin sets - no invitation email.
+     *
+     * Same validation as inviteNewUser(), plus a password strength check; the account is
+     * usable immediately and never enters the invite/pending flow.
+     *
+     * @param  array<string, mixed>  $post  Raw request input.
+     * @param  int|string|null  $sessionClientId  The session user's client id (used for managers).
+     * @param  bool  $staysInOwnClient  Whether the creating user is confined to their own client.
+     * @return string 'success' or an error code: enter_email, no_valid_email, user_exists,
+     *                role_not_allowed, enter_password, weak_password, create_failed
+     *
+     * @throws BindingResolutionException
+     */
+    #[RequiresPermission(UsersPermissions::CREATE, global: true)]
+    public function addUserWithoutInvite(array $post, int|string|null $sessionClientId, bool $staysInOwnClient): string
+    {
+        $values = [
+            'firstname' => NameSanitizer::clean($post['firstname'] ?? ''),
+            'lastname' => NameSanitizer::clean($post['lastname'] ?? ''),
+            'user' => trim((string) ($post['user'] ?? '')),
+            'phone' => $post['phone'] ?? '',
+            'role' => $post['role'] ?? '',
+            'password' => (string) ($post['password'] ?? ''),
+            'pwReset' => '',
+            'status' => '',
+            'jobTitle' => $post['jobTitle'] ?? '',
+            'jobLevel' => $post['jobLevel'] ?? '',
+            'department' => $post['department'] ?? '',
+            'clientId' => $staysInOwnClient ? $sessionClientId : ($post['client'] ?? ''),
+        ];
+
+        if ($values['user'] === '') {
+            return 'enter_email';
+        }
+
+        if (! filter_var($values['user'], FILTER_VALIDATE_EMAIL)) {
+            return 'no_valid_email';
+        }
+
+        if (! $this->roleCeiling()->canAssign($values['role'])) {
+            return 'role_not_allowed';
+        }
+
+        if ($this->usernameExist($values['user'])) {
+            return 'user_exists';
+        }
+
+        if ($values['password'] === '') {
+            return 'enter_password';
+        }
+
+        if (! $this->checkPasswordStrength($values['password'])) {
+            return 'weak_password';
+        }
+
+        $newUserId = $this->addUser($values);
+
+        if ($newUserId === false || $newUserId === 0) {
+            return 'create_failed';
+        }
+
+        $projects = $post['projects'] ?? null;
+        if (is_array($projects) && count($projects) > 0) {
+            $this->reconcileProjectRelations((int) $newUserId, $projects);
+        }
+
+        return 'success';
+    }
+
+    /**
      * Connects/binds to LDAP and returns the directory members for the import
      * dialog. Returns false when the bind fails.
      *

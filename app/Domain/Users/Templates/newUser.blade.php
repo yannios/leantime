@@ -73,6 +73,19 @@
                     name="department" id="department" value="{{ $values['department'] }}" /><br />
 
 
+                    <x-global::elements.section-header>{!! __('label.password') !!}</x-global::elements.section-header>
+
+                    <label style="font-weight:normal;display:block;margin-bottom:8px;">
+                        <input type="checkbox" name="saveDirect" id="saveDirect" value="1"
+                               onchange="var r=document.getElementById('passwordRow');r.style.display=this.checked?'block':'none';var b=document.getElementById('save');if(b){b.value=this.checked?'{!! __('buttons.add_user') !!}':'{!! __('buttons.invite_user') !!}';}" />
+                        {!! __('text.add_user_without_invite', 'Add the user without an invitation - set the password now') !!}
+                    </label>
+
+                    <div id="passwordRow" style="display:none;">
+                        <x-global::forms.label for="password">{!! __('label.password') !!}</x-global::forms.label>
+                        <x-global::forms.text-input type="password" name="password" id="password" value="" autocomplete="new-password" />
+                        <br /><small class="muted">{!! __('text.password_policy_hint', 'At least 8 characters with an uppercase letter, a lowercase letter, a number and a special character.') !!}</small>
+                    </div>
                     <p class="stdformbutton">
                         <input type="hidden" name="save" value="1" />
                         <x-global::forms.button tag="input" inputType="submit" contentRole="primary" :labelText="__('buttons.invite_user')" name="save" id="save" />

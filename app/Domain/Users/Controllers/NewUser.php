@@ -66,7 +66,50 @@ class NewUser extends Controller
         $values = $this->getDefaultValues();
         $projectrelation = [];
 
-        if (isset($_POST['save'])) {
+        if (isset($_POST['saveDirect'])) {
+            $staysInOwnClient = $this->userService->invitesStayInOwnClient();
+
+            $values = [
+                'firstname' => $_POST['firstname'],
+                'lastname' => $_POST['lastname'],
+                'user' => $_POST['user'],
+                'phone' => $_POST['phone'],
+                'role' => $_POST['role'],
+                'password' => '',
+                'pwReset' => '',
+                'status' => '',
+                'jobTitle' => $_POST['jobTitle'],
+                'jobLevel' => $_POST['jobLevel'],
+                'department' => $_POST['department'],
+                'clientId' => $staysInOwnClient ? session('userdata.clientId') : $_POST['client'],
+            ];
+
+            if (isset($_POST['projects']) && is_array($_POST['projects'])) {
+                foreach ($_POST['projects'] as $project) {
+                    $projectrelation[] = $project;
+                }
+            }
+
+            $result = $this->userService->addUserWithoutInvite($_POST, session('userdata.clientId'), $staysInOwnClient);
+
+            if ($result === 'enter_email') {
+                $this->tpl->setNotification($this->language->__('notification.enter_email'), 'error');
+            } elseif ($result === 'no_valid_email') {
+                $this->tpl->setNotification($this->language->__('notification.no_valid_email'), 'error');
+            } elseif ($result === 'user_exists') {
+                $this->tpl->setNotification($this->language->__('notification.user_exists'), 'error');
+            } elseif ($result === 'role_not_allowed') {
+                $this->tpl->setNotification($this->language->__('notification.role_not_allowed'), 'error');
+            } elseif ($result === 'enter_password') {
+                $this->tpl->setNotification($this->language->__('notification.enter_password'), 'error');
+            } elseif ($result === 'weak_password') {
+                $this->tpl->setNotification($this->language->__('notification.password_not_strong', 'Password must be at least 8 characters and include an uppercase letter, a lowercase letter, a number and a special character.'), 'error');
+            } elseif ($result === 'create_failed') {
+                $this->tpl->setNotification($this->language->__('notification.user_create_failed', 'The user could not be created.'), 'error');
+            } else {
+                $this->tpl->setNotification('notification.user_created', 'success', 'user_created');
+            }
+        } elseif (isset($_POST['save'])) {
             $staysInOwnClient = $this->userService->invitesStayInOwnClient();
 
             $values = [
