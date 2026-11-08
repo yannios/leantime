@@ -436,3 +436,37 @@ body .projectselector ul.selectorList li.projectLineItem.hasSubtitle a .projectN
 body .projectselector ul.selectorList li.projectLineItem.hasSubtitle a .projectName br {
     display: none;
 }
+
+/* --- Header wordmark -------------------------------------------------------
+   The logo slot renders <div class="logo"><a style="background-image:url(logo.svg)">.
+   Swap that image for a plain wordmark: the anchor keeps its box (so nothing in
+   the header shifts) but drops the image and the &nbsp; it carried, and the text
+   comes from ::before. Height 30px, vertically centred in the 50px header. */
+body .mainwrapper .header .logo {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+body .mainwrapper .header .logo a {
+    background-image: none !important;
+    display: block;
+    width: auto;
+    height: 30px;
+    padding: 0;
+    font-size: 0;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+body .mainwrapper .header .logo a::before {
+    content: "Upravljanje projektima";
+    display: inline-block;
+    color: var(--nav-link-color, #fff);
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    line-height: 30px;
+    white-space: nowrap;
+    vertical-align: top;
+}
