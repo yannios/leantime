@@ -902,6 +902,20 @@ class Tickets
             $query->whereIn($this->connection->raw('LOWER(zp_tickets.priority)'), $priorities);
         }
 
+        if (isset($searchCriteria['tags']) && $searchCriteria['tags'] != '') {
+            $tagFilter = array_values(array_filter(
+                array_map('trim', explode(',', (string) $searchCriteria['tags'])),
+                static fn ($tag) => $tag !== ''
+            ));
+
+            if ($tagFilter !== []) {
+                $query->where(function ($q) use ($tagFilter) {
+                    foreach ($tagFilter as $tag) {
+                        $q->orWhereRaw($this->dbHelper->findInSet('?', 'zp_tickets.tags'), [$tag]);
+                    }
+                });
+            }
+        }
         if (isset($searchCriteria['term']) && $searchCriteria['term'] != '') {
             $term = $searchCriteria['term'];
             $termWild = '%'.$term.'%';
@@ -1694,6 +1708,20 @@ class Tickets
             $query->whereIn($this->connection->raw('LOWER(zp_tickets.priority)'), $priorities);
         }
 
+        if (isset($searchCriteria['tags']) && $searchCriteria['tags'] != '') {
+            $tagFilter = array_values(array_filter(
+                array_map('trim', explode(',', (string) $searchCriteria['tags'])),
+                static fn ($tag) => $tag !== ''
+            ));
+
+            if ($tagFilter !== []) {
+                $query->where(function ($q) use ($tagFilter) {
+                    foreach ($tagFilter as $tag) {
+                        $q->orWhereRaw($this->dbHelper->findInSet('?', 'zp_tickets.tags'), [$tag]);
+                    }
+                });
+            }
+        }
         if (isset($searchCriteria['term']) && $searchCriteria['term'] != '') {
             $term = $searchCriteria['term'];
             $termWild = '%'.$term.'%';

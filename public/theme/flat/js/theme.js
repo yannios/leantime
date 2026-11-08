@@ -140,3 +140,88 @@
     document.addEventListener('htmx:afterSwap', inject);
     document.addEventListener('lt:softReload', inject);
 })();
+
+/**
+ * 3. Tag criterion in the filter panel.
+ *
+ * Leantime builds the filter URL in JS (ticketsController.initTicketSearchSubmit)
+ * from a fixed field list, so a new field is invisible to it. When the tag field
+ * has a value this handler takes the submit over (capture phase, before the
+ * bundled handler) and rebuilds the same query with tags added; with an empty
+ * tag field it stays out of the way entirely.
+ */
+(function () {
+    'use strict';
+
+    // [query name, selector] — mirrors ticketsController.initTicketSearchSubmit.
+    var FIELDS = [
+        ['projectId', '#projectIdInput'],
+        ['users', '#userSelect'],
+        ['milestone', '#milestoneSelect'],
+        ['term', '#termInput'],
+        ['sprint', '#sprintSelect'],
+        ['type', '#typeSelect'],
+        ['priority', '#prioritySelect'],
+        ['status', '#statusSelect'],
+        ['projects', '#projectsSelect'],
+        ['sort', '#sortBySelect'],
+        ['groupBy', "input[name='groupBy']:checked"],
+        ['showTasks', "input[name='showTasks']:checked"],
+        ['tags', 'input[name="tags"]']
+    ];
+
+    function buildUrl(jQuery) {
+        var parts = ['search=true'];
+
+        for (var i = 0; i < FIELDS.length; i++) {
+            var name = FIELDS[i][0];
+            var el = jQuery(FIELDS[i][1]);
+            var value = el.val();
+
+            if (value === null || value === undefined || value === '' || value.length === 0) {
+                continue;
+            }
+
+            parts.push(encodeURIComponent(name) + '=' + encodeURIComponent(String(value)));
+        }
+
+        return window.location.pathname + '?' + parts.join('&');
+    }
+
+    function install() {
+        var form = document.getElementById('ticketSearch');
+
+        if (!form || form.dataset.flatTagsBound === '1' || !form.querySelector('input[name="tags"]')) {
+            return;
+        }
+
+        form.dataset.flatTagsBound = '1';
+
+        form.addEventListener('submit', function (event) {
+            var field = form.querySelector('input[name="tags"]');
+
+            if (!field || String(field.value || '').trim() === '' || !window.jQuery) {
+                return; // nothing to add: the bundled handler builds the URL
+            }
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            window.location.href = buildUrl(window.jQuery);
+        }, true);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', install);
+    } else {
+        install();
+    }
+
+    document.addEventListener('htmx:afterSwap', install);
+
+    // Exposed for debugging and for the theme's own tests.
+    window.leantimeFlat = window.leantimeFlat || {};
+    window.leantimeFlat.ticketSearchUrl = function () {
+        return window.jQuery ? buildUrl(window.jQuery) : '';
+    };
+})();

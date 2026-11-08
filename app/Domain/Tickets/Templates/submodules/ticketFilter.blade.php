@@ -125,6 +125,16 @@
                     </div>
                 </div>
 
+                {{-- Tags are free text on a ticket (comma separated), so this is a text field
+                     matched exactly against the tag list via FIND_IN_SET, not a dropdown. --}}
+                <div class="">
+                    <div class="form-group">
+                        <x-global::forms.label class="inline">{!! __('label.tags') !!}</x-global::forms.label>
+                        <x-global::forms.text-input name="tags" id="tagsInput"
+                        value="{{ $searchCriteria['tags'] ?? '' }}"
+                        placeholder="{{ __('label.tags') }}" />
+                    </div>
+                </div>
                 <div class="">
                     <div class="form-group">
                         <x-global::forms.label class="inline">{!! __('label.search_term') !!}</x-global::forms.label>

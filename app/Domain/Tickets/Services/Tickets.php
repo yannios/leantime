@@ -317,6 +317,7 @@ class Tickets extends BaseService
             'type' => '',
             'excludeType' => 'milestone',
             'milestone' => '',
+'tags' => '',
             'priority' => '',
             'orderBy' => 'sortIndex',
             'orderDirection' => 'DESC',
@@ -338,6 +339,10 @@ class Tickets extends BaseService
         if (isset($searchParams['status']) === true) {
             $searchCriteria['status'] = $searchParams['status'];
         }
+        if (isset($searchParams['tags']) === true) {
+            $searchCriteria['tags'] = $searchParams['tags'];
+        }
+
 
         if (isset($searchParams['term']) === true) {
             $searchCriteria['term'] = $searchParams['term'];
