@@ -399,3 +399,30 @@ body .dataTables_wrapper .bottom {
     min-height: 0;
     padding-top: 2px !important;
 }
+
+/* --- Project selector: two-line project rows -------------------------------
+   In the "has subtitle" variant the project name sits under the client name in
+   a .projectName box fixed to height:30px with line-height:12px. A 15px base
+   font is taller than that line box, so the name's descenders were clipped. Let
+   the box size itself and keep it on one line with an ellipsis. */
+body .projectselector ul.selectorList li.projectLineItem a {
+    line-height: 1.4;
+    min-height: 0;
+    padding: 7px 0 7px 15px;
+}
+
+body .projectselector ul.selectorList li.projectLineItem.hasSubtitle a small {
+    display: block;
+    line-height: 1.25;
+    margin-bottom: 2px;
+}
+
+body .projectselector ul.selectorList li.projectLineItem.hasSubtitle a .projectName {
+    float: none;
+    height: auto;
+    width: auto;
+    line-height: 1.35;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
