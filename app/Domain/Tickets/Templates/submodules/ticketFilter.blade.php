@@ -125,14 +125,17 @@
                     </div>
                 </div>
 
-                {{-- Tags are free text on a ticket (comma separated), so this is a text field
-                     matched exactly against the tag list via FIND_IN_SET, not a dropdown. --}}
                 <div class="">
+                    <x-global::forms.label class="inline">{!! __('label.tags') !!}</x-global::forms.label>
                     <div class="form-group">
-                        <x-global::forms.label class="inline">{!! __('label.tags') !!}</x-global::forms.label>
-                        <x-global::forms.text-input name="tags" id="tagsInput"
-                        value="{{ $searchCriteria['tags'] ?? '' }}"
-                        placeholder="{{ __('label.tags') }}" />
+                        <x-global::forms.select enhanced multiple="multiple" data-placeholder="{{ __('label.tags') }}" title="{{ __('label.tags') }}" name="tags" id="tagsSelect">
+                            <option value="" data-placeholder="true">{!! __('label.all_tags', 'Sve oznake') !!}</option>
+                            @foreach (($projectTags ?? []) as $tagOption)
+                                <option value="{{ $tagOption }}"
+                                    @if (isset($searchCriteria['tags']) && in_array($tagOption, array_map('trim', explode(',', (string) $searchCriteria['tags'])), true)) selected='selected' @endif
+                                >{{ $tpl->escape($tagOption) }}</option>
+                            @endforeach
+                        </x-global::forms.select>
                     </div>
                 </div>
                 <div class="">

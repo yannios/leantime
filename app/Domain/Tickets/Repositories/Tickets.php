@@ -524,6 +524,37 @@ class Tickets
      *
      * @throws BindingResolutionException
      */
+    /**
+     * Distinct tags used on tickets of one project (tags are a comma separated string).
+     *
+     * @return array<int, string>
+     */
+    public function getTagsByProjectId(int $projectId): array
+    {
+        $rows = $this->connection->table('zp_tickets')
+            ->select('tags')
+            ->where('projectId', $projectId)
+            ->whereNotNull('tags')
+            ->where('tags', '<>', '')
+            ->distinct()
+            ->get();
+
+        $tags = [];
+
+        foreach ($rows as $row) {
+            foreach (explode(',', (string) $row->tags) as $tag) {
+                $tag = trim($tag);
+                if ($tag !== '') {
+                    $tags[$tag] = $tag;
+                }
+            }
+        }
+
+        ksort($tags, SORT_NATURAL | SORT_FLAG_CASE);
+
+        return array_values($tags);
+    }
+
     public function getAll(int $limit = 9999): false|array
     {
 

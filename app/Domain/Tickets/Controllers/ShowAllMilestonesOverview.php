@@ -50,6 +50,7 @@ class ShowAllMilestonesOverview extends Controller
         $this->tpl->assign('ticketTypeIcons', $this->ticketService->getTypeIcons());
 
         $this->tpl->assign('searchCriteria', $searchCriteria);
+        $this->tpl->assign('projectTags', $this->ticketService->getProjectTags((int) session('currentProject')));
         $this->tpl->assign('numOfFilters', $this->ticketService->countSetFilters($searchCriteria));
 
         $allClients = $this->clientService->getUserClients(session('userdata.id'));

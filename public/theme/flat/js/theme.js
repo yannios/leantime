@@ -167,7 +167,7 @@
         ['sort', '#sortBySelect'],
         ['groupBy', "input[name='groupBy']:checked"],
         ['showTasks', "input[name='showTasks']:checked"],
-        ['tags', 'input[name="tags"]']
+        ['tags', '[name="tags"]']
     ];
 
     function buildUrl(jQuery) {
@@ -191,14 +191,14 @@
     function install() {
         var form = document.getElementById('ticketSearch');
 
-        if (!form || form.dataset.flatTagsBound === '1' || !form.querySelector('input[name="tags"]')) {
+        if (!form || form.dataset.flatTagsBound === '1' || !form.querySelector('[name="tags"]')) {
             return;
         }
 
         form.dataset.flatTagsBound = '1';
 
         form.addEventListener('submit', function (event) {
-            var field = form.querySelector('input[name="tags"]');
+            var field = form.querySelector('[name="tags"]');
 
             if (!field || String(field.value || '').trim() === '' || !window.jQuery) {
                 return; // nothing to add: the bundled handler builds the URL

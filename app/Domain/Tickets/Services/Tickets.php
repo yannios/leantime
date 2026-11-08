@@ -268,6 +268,23 @@ class Tickets extends BaseService
      *
      * @api
      */
+    /**
+     * Tags used on the tickets of a project - the options of the tag filter.
+     *
+     * @return array<int, string>
+     *
+     * @api
+     */
+    #[RequiresPermission(TicketsPermissions::VIEW)]
+    public function getProjectTags(int $projectId): array
+    {
+        if ($projectId <= 0) {
+            return [];
+        }
+
+        return $this->ticketRepository->getTagsByProjectId($projectId);
+    }
+
     #[RequiresPermission(TicketsPermissions::VIEW)]
     public function getTicketTypes(): array
     {
@@ -5417,6 +5434,7 @@ class Tickets extends BaseService
             'priorities' => $priorities,
             'types' => $types,
             'ticketTypeIcons' => $ticketTypeIcons,
+            'projectTags' => $this->getProjectTags((int) session('currentProject')),
             'numOfFilters' => $numOfFilters,
             'onTheClock' => $onTheClock,
             'sprints' => $sprints,
