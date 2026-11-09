@@ -2144,3 +2144,17 @@ div.lt-modal-meta {
 span.head-icon {
     font-size: 17px;
 }
+
+/* --- Task tree: drop the connector lines ----------------------------------
+   Nested to-dos are drawn with three guides: a vertical rule on the child list
+   and, per child, a short horizontal tick plus a rounded corner. The indent
+   already carries the hierarchy, so all three go; the drag handle, the collapse
+   chevron and the indent itself stay. */
+body .sortable-list .sortable-list::before,
+body .sortable-list .sortable-list > .sortable-item::before,
+body .sortable-list .sortable-list > .sortable-item::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+    border: 0 !important;
+}
