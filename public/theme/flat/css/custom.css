@@ -2330,3 +2330,10 @@ body .headerinner .bigProjectSelector > .fa-caret-down {
     margin: 0 !important;
     vertical-align: middle;
 }
+
+/* Project avatar in the selector: nav.css gives the 30px image a 10px top margin
+   (it was aligned against a 50px line box), which drops it below the label now
+   that the row is centred. The image needs no top offset. */
+span.projectAvatar img {
+    margin-top: 0px;
+}
