@@ -229,35 +229,79 @@
 /**
  * Kanban: a title-only board.
  *
- * Leantime's card carries a project line, a parent link, a timer, a due date, a
- * status chip and a milestone chip. When the board is used as an overview those
- * are noise, so the view menu gets one more control - unfold-vertical - that
- * flips body.flat-cards-titles-only. The stylesheet hides everything but the
- * headline; this file only owns the button, the class and the remembered state.
+ * Leantime already knows how to hide card fields - the "Polja kartice" toggles in
+ * the view menu post to /hx/tickets/kanbanView/save and the board re-renders with
+ * only the checked ones. This adds a single button that does the same thing in one
+ * click: it clears every box and saves, so what is left of a card is its headline.
+ *
+ * The selection is remembered, so the second click puts the fields back as they
+ * were. Two leftovers the field list does not cover - the type/#id line and the
+ * per-card "..." menu - are hidden by the stylesheet under
+ * body.flat-cards-titles-only, which is set whenever the board reports no fields.
  */
 (function () {
     'use strict';
 
     var CLASS = 'flat-cards-titles-only';
-    var KEY = 'leantimeFlat.cardsTitlesOnly';
+    var KEY = 'leantimeFlat.cardFields';
     var LABEL_OFF = 'Sakrij detalje kartica';
     var LABEL_ON = 'Prikaži detalje kartica';
 
-    function stored() {
+    function boxes() {
+        return [].slice.call(document.querySelectorAll('.kanbanViewMenu input[name="fields[]"]'));
+    }
+
+    function remember() {
+        var on = boxes().filter(function (b) { return b.checked; }).map(function (b) { return b.value; });
+
         try {
-            return window.localStorage.getItem(KEY) === '1';
+            if (on.length > 0) {
+                window.localStorage.setItem(KEY, JSON.stringify(on));
+            }
         } catch (e) {
-            return false;
+            /* private mode */
+        }
+
+        return on;
+    }
+
+    function recalled() {
+        try {
+            var raw = window.localStorage.getItem(KEY);
+            var list = raw ? JSON.parse(raw) : [];
+
+            return Array.isArray(list) ? list : [];
+        } catch (e) {
+            return [];
         }
     }
 
     function paint(btn) {
-        var on = document.body.classList.contains(CLASS);
+        var all = boxes();
+        var shown = all.filter(function (b) { return b.checked; }).length;
+        var empty = all.length > 0 && shown === 0;
 
-        btn.classList.toggle('active', on);
-        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-        btn.setAttribute('title', on ? LABEL_ON : LABEL_OFF);
-        btn.setAttribute('data-tippy-content', on ? LABEL_ON : LABEL_OFF);
+        document.body.classList.toggle(CLASS, empty);
+        btn.classList.toggle('active', empty);
+        btn.setAttribute('aria-pressed', empty ? 'true' : 'false');
+        btn.setAttribute('title', empty ? LABEL_ON : LABEL_OFF);
+        btn.setAttribute('data-tippy-content', empty ? LABEL_ON : LABEL_OFF);
+    }
+
+    function save() {
+        var form = document.querySelector('.kanbanViewMenu form[hx-post], .kanbanViewMenu form');
+
+        if (!form) {
+            return;
+        }
+
+        if (window.htmx && typeof window.htmx.trigger === 'function') {
+            window.htmx.trigger(form, 'submit');
+        } else if (typeof form.requestSubmit === 'function') {
+            form.requestSubmit();
+        } else {
+            form.submit();
+        }
     }
 
     function install() {
@@ -267,38 +311,49 @@
             return; // not the board
         }
 
-        var existing = document.getElementById('flatCardsToggle');
+        var btn = document.getElementById('flatCardsToggle');
 
-        if (existing) {
-            paint(existing);
+        if (!btn) {
+            btn = document.createElement('a');
+            btn.id = 'flatCardsToggle';
+            btn.className = 'btn-link flat-cards-toggle';
+            btn.href = 'javascript:void(0);';
+            btn.innerHTML = '<span class="lt-ico lt-ico-unfold-vertical"></span>';
 
-            return;
-        }
-
-        var btn = document.createElement('a');
-
-        btn.id = 'flatCardsToggle';
-        btn.className = 'btn-link flat-cards-toggle';
-        btn.href = 'javascript:void(0);';
-        btn.innerHTML = '<span class="lt-ico lt-ico-unfold-vertical"></span>';
-        anchor.parentNode.insertBefore(btn, anchor.nextSibling);
-
-        btn.addEventListener('click', function (event) {
-            event.preventDefault();
-
-            var on = document.body.classList.toggle(CLASS);
-
-            try {
-                window.localStorage.setItem(KEY, on ? '1' : '0');
-            } catch (e) {
-                /* private mode: the class still applies, it just is not remembered */
+            var actions = document.querySelector('.lt-tabs-actions');
+            if (actions) {
+                actions.insertBefore(btn, anchor.parentNode.matches('.lt-tabs-actions') ? anchor : anchor.parentNode);
+            } else {
+                anchor.parentNode.insertBefore(btn, anchor.nextSibling);
             }
 
-            paint(btn);
-        });
+            btn.addEventListener('click', function (event) {
+                event.preventDefault();
 
-        if (stored()) {
-            document.body.classList.add(CLASS);
+                var all = boxes();
+
+                if (all.length === 0) {
+                    return;
+                }
+
+                var anyChecked = all.some(function (b) { return b.checked; });
+
+                if (anyChecked) {
+                    remember();
+                    all.forEach(function (b) { b.checked = false; });
+                } else {
+                    var back = recalled();
+
+                    all.forEach(function (b) { b.checked = back.indexOf(b.value) !== -1; });
+
+                    if (!all.some(function (b) { return b.checked; })) {
+                        all.forEach(function (b) { b.checked = true; });
+                    }
+                }
+
+                paint(btn);
+                save();
+            });
         }
 
         paint(btn);
