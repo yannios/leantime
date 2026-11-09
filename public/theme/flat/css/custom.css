@@ -2311,3 +2311,22 @@ body .ticketBox.tilt.right,
 body .ui-sortable-helper.tilt {
     transform: none !important;
 }
+
+/* --- Project selector caret -----------------------------------------------
+   nav.css floats the caret (`.headerinner .bigProjectSelector>.fa-caret-down
+   { float:right; padding-top:17px }`) to park it at the far right of a 270px
+   box. The box is width:auto now and the caret is a 1em Lucide mask, so the
+   padding only pushed it below the text. Lay the selector out as a row instead:
+   avatar, name and caret share one centre line. */
+body .headerinner .bigProjectSelector {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+body .headerinner .bigProjectSelector > .fa-caret-down {
+    float: none !important;
+    padding-top: 0 !important;
+    margin: 0 !important;
+    vertical-align: middle;
+}
