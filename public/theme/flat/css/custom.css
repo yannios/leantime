@@ -1966,3 +1966,16 @@ body .fa-xmark {
     -webkit-mask-image: url("../icons/x.svg");
     mask-image: url("../icons/x.svg");
 }
+
+/* --- Top bar: drop the two marketing feeds --------------------------------
+   Two entries in the head menu carry shipped content rather than work: the
+   plugin news (puzzle icon, an htmx call to marketplaceplugins/getLatest) and
+   the release news (lightning icon, notifications/news/get). Both are rendered
+   by the dropdown component as li.notificationDropdown with a trigger class of
+   .newsDropDownHandler, so they are matched on their htmx target - the bell and
+   the rest of the bar are untouched. */
+body .headmenu > li.appsLink,
+body .headmenu li:has([hx-get*="marketplaceplugins/getLatest"]),
+body .headmenu li:has([hx-get*="/notifications/news/get"]) {
+    display: none !important;
+}
