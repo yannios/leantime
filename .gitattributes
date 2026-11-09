@@ -1,0 +1,7 @@
+# The upgrade pack is consumed by `patch` on a Linux server: it must keep LF
+# endings and must not be normalised to CRLF on checkout.
+deploy/**/*.patch text eol=lf
+deploy/**/*.tsv text eol=lf
+deploy/**/*.sh text eol=lf
+public/theme/flat/js/*.js text eol=lf
+public/theme/flat/css/*.css text eol=lf
