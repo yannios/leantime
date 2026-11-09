@@ -24,7 +24,7 @@
     <div class="clearall"></div>
 
     <x-global::elements.accordion id="myProjectWidget-favorites" :onPage="$background === 'noBackground'" open>
-<x-slot:title>⭐ {{ __('headlines.my_favorites') }}</x-slot:title>
+<x-slot:title><span class="lt-ico lt-ico-star"></span>{{ __('headlines.my_favorites') }}</x-slot:title>
 
             <div class="row">
                 @php
@@ -48,7 +48,7 @@
 
 
     <x-global::elements.accordion id="myProjectWidget-otherProjects" :onPage="$background === 'noBackground'" open>
-<x-slot:title>🗂️ {{ __('headlines.all_assigned_projects') }}</x-slot:title>
+<x-slot:title><span class="lt-ico lt-ico-folder-kanban"></span>{{ __('headlines.all_assigned_projects') }}</x-slot:title>
 
             <div class="row">
                 @foreach ($allProjects as $project)

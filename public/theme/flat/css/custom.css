@@ -143,9 +143,9 @@ body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle a {
 }
 
 body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle a strong {
-    font-weight: 600;
-    font-size: inherit;
-    color: color-mix(in srgb, currentColor 78%, transparent);
+    font-weight: 500;
+    font-size: 18px;
+    color: #ffffff;
 }
 
 /* Items inside a group: the larger type, a tight row. Laid out as a row so the
@@ -157,8 +157,8 @@ body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) a {
     align-items: center;
     gap: 8px;
     font-size: 17px;
-    line-height: 1.25;
-    padding: 2px 15px;
+    line-height: 1.15;
+    padding: 0 15px;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -511,9 +511,9 @@ body .mainwrapper .header .logo a::before {
 body .leftmenu ul.nav-stacked li a > span[class*="fa-"],
 body .leftmenu ul.nav-stacked li a > i[class*="fa-"] {
     display: inline-block;
-    flex: 0 0 18px;
-    width: 18px;
-    height: 18px;
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
     margin-right: 0;
     font-family: inherit !important;
     font-size: 0 !important;
@@ -524,8 +524,8 @@ body .leftmenu ul.nav-stacked li a > i[class*="fa-"] {
     mask-repeat: no-repeat;
     -webkit-mask-position: center;
     mask-position: center;
-    -webkit-mask-size: 18px 18px;
-    mask-size: 18px 18px;
+    -webkit-mask-size: 16px 16px;
+    mask-size: 16px 16px;
 }
 
 /* The submenu caret keeps its own spacing. */
@@ -2085,4 +2085,62 @@ body .lt-ico-list-checks {
 body .lt-ico-circle-check {
     -webkit-mask-image: url("../icons/circle-check.svg");
     mask-image: url("../icons/circle-check.svg");
+}
+
+
+/* --- lucide: monitor-activity + star -------------------------------------- */
+body .lt-ico-monitor-activity {
+    -webkit-mask-image: url("../icons/monitor-activity.svg");
+    mask-image: url("../icons/monitor-activity.svg");
+}
+
+body .lt-ico-star {
+    -webkit-mask-image: url("../icons/star.svg");
+    mask-image: url("../icons/star.svg");
+}
+
+/* --- Right side of the top bar --------------------------------------------
+   The bell, the help menu, the search field and the profile chip all sat on the
+   old 15px base while the labels next to them had moved to 17px. */
+body .headerinner .headmenu.pull-right,
+body .headerinner .headmenu.pull-right li,
+body .headerinner .headmenu.pull-right li > a,
+body .headerinner .headmenu.pull-right .profileHandler,
+body .headerinner .userinfo,
+body .headerinner .userinfo a.profileHandler,
+body .headerinner form.searchInput input,
+body .headerinner .searchBar input,
+body .headerinner .headmenu input,
+body .headerinner .headmenu input::placeholder {
+    font-size: 17px;
+}
+
+body .headerinner .headmenu.pull-right .profileHandler [class*="fa-"],
+body .headerinner .headmenu.pull-right .profileHandler .lt-ico {
+    font-size: inherit;
+}
+
+/* --- Adopted from the Stylebot sheet -------------------------------------- */
+div.lt-card-bd {
+    padding-bottom: 6px;
+    padding-top: 6px;
+}
+
+li.submenuToggle a strong {
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+a.lt-modal-parent {
+    font-size: 17px;
+    color: #cf4705;
+}
+
+div.lt-modal-meta {
+    font-size: 17px;
+}
+
+span.head-icon {
+    font-size: 17px;
 }
