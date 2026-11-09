@@ -503,11 +503,8 @@ body .mainwrapper .header .logo a::before {
 }
 
 /* --- Lucide icons in the left navigation -----------------------------------
-   Leantime ships Font Awesome glyphs inside its translation strings, e.g.
-   menu.todos = "<span class='fa fa-fw fa-thumb-tack'></span> Zadaci". Rather than
-   editing every language file, the FA glyph is hidden (font-size 0) and the same
-   box is painted with the matching Lucide icon as a mask, so the icon inherits
-   the link colour and any hover/active state. Icons: lucide-static v1.70.0. */
+   Geometry for the menu only: an 18px box on the row's centre line. The icon
+   files themselves are mapped once, further down, for the whole interface. */
 
 body .leftmenu ul.nav-stacked li a > span[class*="fa-"],
 body .leftmenu ul.nav-stacked li a > i[class*="fa-"] {
@@ -539,152 +536,1433 @@ body .leftmenu ul.nav-stacked li a > i.submenuCaret {
     vertical-align: -2px;
 }
 
-body .leftmenu .fa-gauge-high {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m12 14 4-4%22 /%3E %3Cpath d=%22M3.34 19a10 10 0 1 1 17.32 0%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m12 14 4-4%22 /%3E %3Cpath d=%22M3.34 19a10 10 0 1 1 17.32 0%22 /%3E %3C/svg%3E");
+/* --- Lucide icons across the interface -------------------------------------
+   The app is written against Font Awesome class names, everywhere: the top bar,
+   the profile menu, table row actions, dashboard cards, empty states. Rather
+   than touch hundreds of templates, every FA class that has a Lucide twin gets
+   its glyph hidden and its box painted with the Lucide file from
+   theme/flat/icons/. The box is 1em square, so fa-lg / fa-2x / fa-3x keep
+   working, and the mask takes currentColor, so hover, active and dark mode all
+   follow. Classes without a twin are left on Font Awesome. */
+
+body :is(.fa-accessible-icon, .fa-address-book, .fa-anchor, .fa-angle-double-left, .fa-angle-double-right, .fa-angle-down, .fa-angle-right, .fa-archive, .fa-arrow-alt-circle-left, .fa-arrow-circle-o-right, .fa-arrow-down-wide-short, .fa-arrow-right, .fa-arrow-right-arrow-left, .fa-arrow-right-to-bracket, .fa-arrow-rotate-left, .fa-arrow-trend-up, .fa-arrow-up, .fa-arrows-down-to-people, .fa-arrows-left-right, .fa-asterisk, .fa-balance-scale, .fa-ban, .fa-bar-chart, .fa-barcode, .fa-bars, .fa-bars-progress, .fa-bell, .fa-bell-concierge, .fa-bell-slash, .fa-binoculars, .fa-birthday-cake, .fa-bolt, .fa-bolt-lightning, .fa-book, .fa-bookmark, .fa-border-none, .fa-boxes-stacked, .fa-brain, .fa-briefcase, .fa-bug, .fa-building, .fa-bullhorn, .fa-bullseye, .fa-business-time, .fa-calendar, .fa-calendar-alt, .fa-calendar-check, .fa-calendar-plus, .fa-calendar-week, .fa-calendar-xmark, .fa-camera, .fa-caret-down, .fa-caret-up, .fa-certificate, .fa-chart-bar, .fa-chart-gantt, .fa-chart-line, .fa-check, .fa-check-circle, .fa-check-square, .fa-chess, .fa-chess-board, .fa-chevron-down, .fa-chevron-left, .fa-chevron-right, .fa-circle, .fa-circle-check, .fa-circle-dot, .fa-circle-exclamation, .fa-circle-h, .fa-circle-info, .fa-circle-nodes, .fa-circle-notch, .fa-circle-pause, .fa-circle-play, .fa-circle-plus, .fa-circle-question, .fa-circle-stop, .fa-circle-xmark, .fa-city, .fa-clock, .fa-clock-o, .fa-clock-rotate-left, .fa-clone, .fa-close, .fa-code-branch, .fa-cog, .fa-cogs, .fa-coins, .fa-columns, .fa-comment, .fa-comment-slash, .fa-comments, .fa-comments-dollar, .fa-compass, .fa-compass-drafting, .fa-copy, .fa-database, .fa-desktop, .fa-diagram-next, .fa-diagram-predecessor, .fa-diagram-project, .fa-diagram-successor, .fa-dollar-sign, .fa-down, .fa-download, .fa-draw-polygon, .fa-dumbbell, .fa-edit, .fa-ellipsis, .fa-ellipsis-h, .fa-ellipsis-v, .fa-envelope, .fa-exclamation-triangle, .fa-external-link, .fa-eye, .fa-eye-slash, .fa-face-smile, .fa-file, .fa-file-alt, .fa-file-excel, .fa-file-export, .fa-file-import, .fa-file-lines, .fa-file-pdf, .fa-file-word, .fa-file-zipper, .fa-filter, .fa-fire, .fa-flag, .fa-flag-checkered, .fa-flask, .fa-folder, .fa-folder-open, .fa-folder-tree, .fa-gauge-high, .fa-gauge-simple-high, .fa-gears, .fa-gem, .fa-ghost, .fa-globe, .fa-graduation-cap, .fa-grip-vertical, .fa-group, .fa-hand-holding-dollar, .fa-hand-holding-heart, .fa-hand-spock, .fa-handshake, .fa-heading, .fa-heart, .fa-heart-circle-check, .fa-home, .fa-house, .fa-house-flag, .fa-house-laptop, .fa-icons, .fa-id-badge, .fa-image, .fa-info-circle, .fa-key, .fa-laptop, .fa-layer-group, .fa-leaf, .fa-life-ring, .fa-lightbulb, .fa-link, .fa-list, .fa-list-1-2, .fa-list-check, .fa-list-ul, .fa-location-arrow, .fa-lock, .fa-lock-open, .fa-magnifying-glass, .fa-map, .fa-map-location, .fa-map-signs, .fa-message, .fa-minus, .fa-mobile, .fa-money-bill, .fa-money-bill-alt, .fa-moon, .fa-mountain, .fa-note-sticky, .fa-object-group, .fa-off, .fa-open, .fa-paintbrush, .fa-palette, .fa-panorama, .fa-paper-plane, .fa-paperclip, .fa-pen, .fa-pen-ruler, .fa-pen-to-square, .fa-pencil, .fa-people-arrows, .fa-people-group, .fa-person-circle-question, .fa-person-falling, .fa-phone, .fa-picture, .fa-picture-o, .fa-plug, .fa-plug-circle-check, .fa-plug-circle-xmark, .fa-plus, .fa-plus-circle, .fa-plus-square, .fa-print, .fa-pushpin, .fa-puzzle-piece, .fa-question, .fa-question-circle, .fa-quote-left, .fa-ranking-star, .fa-rectangle-list, .fa-refresh, .fa-reply, .fa-road, .fa-rocket, .fa-rotate, .fa-satellite-dish, .fa-scale-unbalanced, .fa-scissors, .fa-seedling, .fa-shield-halved, .fa-shop, .fa-shopping-cart, .fa-sign-out-alt, .fa-signal, .fa-sitemap, .fa-sliders, .fa-sliders-h, .fa-smile-o, .fa-sort, .fa-spinner, .fa-square-full, .fa-star, .fa-stop, .fa-store, .fa-suitcase, .fa-sun, .fa-table, .fa-table-cells-large, .fa-tachometer-alt, .fa-tags, .fa-th-large, .fa-thermometer-full, .fa-thermometer-half, .fa-thermometer-quarter, .fa-thermometer-three-quarters, .fa-thumb-tack, .fa-thumbs-down, .fa-thumbs-up, .fa-thumbtack, .fa-times, .fa-trash, .fa-trash-alt, .fa-trash-can, .fa-tree, .fa-triangle-exclamation, .fa-trophy, .fa-up, .fa-up-right-and-down-left-from-center, .fa-up-right-from-square, .fa-upload, .fa-user, .fa-user-circle, .fa-user-clock, .fa-user-friends, .fa-user-gear, .fa-user-plus, .fa-user-slash, .fa-users, .fa-utensils, .fa-wand-magic-sparkles, .fa-wrench, .fa-x, .fa-xmark) {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 1em;
+    height: 1em;
+    overflow: hidden;
+    text-indent: -9999px;
+    background-color: currentColor;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: 1em 1em;
+    mask-size: 1em 1em;
+    vertical-align: -0.125em;
 }
 
-body .leftmenu .fa-thumb-tack {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M13 5h8%22 /%3E %3Cpath d=%22M13 12h8%22 /%3E %3Cpath d=%22M13 19h8%22 /%3E %3Cpath d=%22m3 17 2 2 4-4%22 /%3E %3Cpath d=%22m3 7 2 2 4-4%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M13 5h8%22 /%3E %3Cpath d=%22M13 12h8%22 /%3E %3Cpath d=%22M13 19h8%22 /%3E %3Cpath d=%22m3 17 2 2 4-4%22 /%3E %3Cpath d=%22m3 7 2 2 4-4%22 /%3E %3C/svg%3E");
+body .fa-accessible-icon {
+    -webkit-mask-image: url("../icons/accessibility.svg");
+    mask-image: url("../icons/accessibility.svg");
 }
 
-body .leftmenu .fa-thumbtack {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M13 5h8%22 /%3E %3Cpath d=%22M13 12h8%22 /%3E %3Cpath d=%22M13 19h8%22 /%3E %3Cpath d=%22m3 17 2 2 4-4%22 /%3E %3Cpath d=%22m3 7 2 2 4-4%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M13 5h8%22 /%3E %3Cpath d=%22M13 12h8%22 /%3E %3Cpath d=%22M13 19h8%22 /%3E %3Cpath d=%22m3 17 2 2 4-4%22 /%3E %3Cpath d=%22m3 7 2 2 4-4%22 /%3E %3C/svg%3E");
+body .fa-address-book {
+    -webkit-mask-image: url("../icons/contact.svg");
+    mask-image: url("../icons/contact.svg");
 }
 
-body .leftmenu .fa-chart-gantt {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M10 6h8%22 /%3E %3Cpath d=%22M12 16h6%22 /%3E %3Cpath d=%22M3 3v16a2 2 0 0 0 2 2h16%22 /%3E %3Cpath d=%22M8 11h7%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M10 6h8%22 /%3E %3Cpath d=%22M12 16h6%22 /%3E %3Cpath d=%22M3 3v16a2 2 0 0 0 2 2h16%22 /%3E %3Cpath d=%22M8 11h7%22 /%3E %3C/svg%3E");
+body .fa-anchor {
+    -webkit-mask-image: url("../icons/anchor.svg");
+    mask-image: url("../icons/anchor.svg");
 }
 
-body .leftmenu .fa-bullseye {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%2210%22 /%3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%226%22 /%3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%222%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%2210%22 /%3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%226%22 /%3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%222%22 /%3E %3C/svg%3E");
+body .fa-angle-double-left {
+    -webkit-mask-image: url("../icons/chevrons-left.svg");
+    mask-image: url("../icons/chevrons-left.svg");
 }
 
-body .leftmenu .fa-lightbulb {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5%22 /%3E %3Cpath d=%22M9 18h6%22 /%3E %3Cpath d=%22M10 22h4%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5%22 /%3E %3Cpath d=%22M9 18h6%22 /%3E %3Cpath d=%22M10 22h4%22 /%3E %3C/svg%3E");
+body .fa-angle-double-right {
+    -webkit-mask-image: url("../icons/chevrons-right.svg");
+    mask-image: url("../icons/chevrons-right.svg");
 }
 
-body .leftmenu .fa-compass-drafting {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Crect width=%2218%22 height=%227%22 x=%223%22 y=%223%22 rx=%221%22 /%3E %3Crect width=%229%22 height=%227%22 x=%223%22 y=%2214%22 rx=%221%22 /%3E %3Crect width=%225%22 height=%227%22 x=%2216%22 y=%2214%22 rx=%221%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Crect width=%2218%22 height=%227%22 x=%223%22 y=%223%22 rx=%221%22 /%3E %3Crect width=%229%22 height=%227%22 x=%223%22 y=%2214%22 rx=%221%22 /%3E %3Crect width=%225%22 height=%227%22 x=%2216%22 y=%2214%22 rx=%221%22 /%3E %3C/svg%3E");
+body .fa-angle-down {
+    -webkit-mask-image: url("../icons/chevron-down.svg");
+    mask-image: url("../icons/chevron-down.svg");
 }
 
-body .leftmenu .fa-hand-spock {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8%22 /%3E %3Cpath d=%22M3 3v5h5%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8%22 /%3E %3Cpath d=%22M3 3v5h5%22 /%3E %3C/svg%3E");
+body .fa-angle-right {
+    -webkit-mask-image: url("../icons/chevron-right.svg");
+    mask-image: url("../icons/chevron-right.svg");
 }
 
-body .leftmenu .fa-book {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M12 5v16%22 /%3E %3Cpath d=%22M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M12 5v16%22 /%3E %3Cpath d=%22M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z%22 /%3E %3C/svg%3E");
+body .fa-archive {
+    -webkit-mask-image: url("../icons/archive.svg");
+    mask-image: url("../icons/archive.svg");
 }
 
-body .leftmenu .fa-file {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z%22 /%3E %3C/svg%3E");
+body .fa-arrow-alt-circle-left {
+    -webkit-mask-image: url("../icons/circle-arrow-left.svg");
+    mask-image: url("../icons/circle-arrow-left.svg");
 }
 
-body .leftmenu .fa-chart-bar {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M3 3v16a2 2 0 0 0 2 2h16%22 /%3E %3Cpath d=%22M18 17V9%22 /%3E %3Cpath d=%22M13 17V5%22 /%3E %3Cpath d=%22M8 17v-3%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M3 3v16a2 2 0 0 0 2 2h16%22 /%3E %3Cpath d=%22M18 17V9%22 /%3E %3Cpath d=%22M13 17V5%22 /%3E %3Cpath d=%22M8 17v-3%22 /%3E %3C/svg%3E");
+body .fa-arrow-circle-o-right {
+    -webkit-mask-image: url("../icons/circle-arrow-right.svg");
+    mask-image: url("../icons/circle-arrow-right.svg");
 }
 
-body .leftmenu .fa-brain {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8%22 /%3E %3Cpath d=%22M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8%22 /%3E %3Cpath d=%22M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z%22 /%3E %3C/svg%3E");
+body .fa-arrow-down-wide-short {
+    -webkit-mask-image: url("../icons/arrow-down-narrow-wide.svg");
+    mask-image: url("../icons/arrow-down-narrow-wide.svg");
 }
 
-body .leftmenu .fa-house {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8%22 /%3E %3Cpath d=%22M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8%22 /%3E %3Cpath d=%22M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z%22 /%3E %3C/svg%3E");
+body .fa-arrow-right {
+    -webkit-mask-image: url("../icons/arrow-right.svg");
+    mask-image: url("../icons/arrow-right.svg");
 }
 
-body .leftmenu .fa-house-flag {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Crect width=%227%22 height=%227%22 x=%223%22 y=%223%22 rx=%221%22 /%3E %3Crect width=%227%22 height=%227%22 x=%2214%22 y=%223%22 rx=%221%22 /%3E %3Crect width=%227%22 height=%227%22 x=%2214%22 y=%2214%22 rx=%221%22 /%3E %3Crect width=%227%22 height=%227%22 x=%223%22 y=%2214%22 rx=%221%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Crect width=%227%22 height=%227%22 x=%223%22 y=%223%22 rx=%221%22 /%3E %3Crect width=%227%22 height=%227%22 x=%2214%22 y=%223%22 rx=%221%22 /%3E %3Crect width=%227%22 height=%227%22 x=%2214%22 y=%2214%22 rx=%221%22 /%3E %3Crect width=%227%22 height=%227%22 x=%223%22 y=%2214%22 rx=%221%22 /%3E %3C/svg%3E");
+body .fa-arrow-right-arrow-left {
+    -webkit-mask-image: url("../icons/arrow-right-left.svg");
+    mask-image: url("../icons/arrow-right-left.svg");
 }
 
-body .leftmenu .fa-calendar {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M8 2v3%22 /%3E %3Cpath d=%22M16 2v3%22 /%3E %3Crect x=%223%22 y=%223%22 width=%2218%22 height=%2218%22 rx=%222%22 /%3E %3Cpath d=%22M3 9h18%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M8 2v3%22 /%3E %3Cpath d=%22M16 2v3%22 /%3E %3Crect x=%223%22 y=%223%22 width=%2218%22 height=%2218%22 rx=%222%22 /%3E %3Cpath d=%22M3 9h18%22 /%3E %3C/svg%3E");
+body .fa-arrow-right-to-bracket {
+    -webkit-mask-image: url("../icons/log-in.svg");
+    mask-image: url("../icons/log-in.svg");
 }
 
-body .leftmenu .fa-clock-o {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%2210%22 /%3E %3Cpath d=%22M12 6v6l4 2%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%2210%22 /%3E %3Cpath d=%22M12 6v6l4 2%22 /%3E %3C/svg%3E");
+body .fa-arrow-rotate-left {
+    -webkit-mask-image: url("../icons/rotate-ccw.svg");
+    mask-image: url("../icons/rotate-ccw.svg");
 }
 
-body .leftmenu .fa-clock {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%2210%22 /%3E %3Cpath d=%22M12 6v6l4 2%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%2210%22 /%3E %3Cpath d=%22M12 6v6l4 2%22 /%3E %3C/svg%3E");
+body .fa-arrow-trend-up {
+    -webkit-mask-image: url("../icons/trending-up.svg");
+    mask-image: url("../icons/trending-up.svg");
 }
 
-body .leftmenu .fa-business-time {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%2210%22 /%3E %3Cpath d=%22M12 6v6l4 2%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%2210%22 /%3E %3Cpath d=%22M12 6v6l4 2%22 /%3E %3C/svg%3E");
+body .fa-arrow-up {
+    -webkit-mask-image: url("../icons/arrow-up.svg");
+    mask-image: url("../icons/arrow-up.svg");
 }
 
-body .leftmenu .fa-briefcase {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z%22 /%3E %3Cpath d=%22M8 10v4%22 /%3E %3Cpath d=%22M12 10v2%22 /%3E %3Cpath d=%22M16 10v6%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z%22 /%3E %3Cpath d=%22M8 10v4%22 /%3E %3Cpath d=%22M12 10v2%22 /%3E %3Cpath d=%22M16 10v6%22 /%3E %3C/svg%3E");
+body .fa-arrows-down-to-people {
+    -webkit-mask-image: url("../icons/users.svg");
+    mask-image: url("../icons/users.svg");
 }
 
-body .leftmenu .fa-suitcase {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z%22 /%3E %3Cpath d=%22M8 10v4%22 /%3E %3Cpath d=%22M12 10v2%22 /%3E %3Cpath d=%22M16 10v6%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z%22 /%3E %3Cpath d=%22M8 10v4%22 /%3E %3Cpath d=%22M12 10v2%22 /%3E %3Cpath d=%22M16 10v6%22 /%3E %3C/svg%3E");
+body .fa-arrows-left-right {
+    -webkit-mask-image: url("../icons/move-horizontal.svg");
+    mask-image: url("../icons/move-horizontal.svg");
 }
 
-body .leftmenu .fa-address-book {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M16 2v2%22 /%3E %3Cpath d=%22M7 21v-2a2 2 0 012-2h6a2 2 0 012 2v2%22 /%3E %3Cpath d=%22M8 2v2%22 /%3E %3Ccircle cx=%2212%22 cy=%2210%22 r=%223%22 /%3E %3Crect x=%223%22 y=%223%22 width=%2218%22 height=%2218%22 rx=%222%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M16 2v2%22 /%3E %3Cpath d=%22M7 21v-2a2 2 0 012-2h6a2 2 0 012 2v2%22 /%3E %3Cpath d=%22M8 2v2%22 /%3E %3Ccircle cx=%2212%22 cy=%2210%22 r=%223%22 /%3E %3Crect x=%223%22 y=%223%22 width=%2218%22 height=%2218%22 rx=%222%22 /%3E %3C/svg%3E");
+body .fa-asterisk {
+    -webkit-mask-image: url("../icons/asterisk.svg");
+    mask-image: url("../icons/asterisk.svg");
 }
 
-body .leftmenu .fa-users {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2%22 /%3E %3Cpath d=%22M16 3.128a4 4 0 0 1 0 7.744%22 /%3E %3Cpath d=%22M22 21v-2a4 4 0 0 0-3-3.87%22 /%3E %3Ccircle cx=%229%22 cy=%227%22 r=%224%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2%22 /%3E %3Cpath d=%22M16 3.128a4 4 0 0 1 0 7.744%22 /%3E %3Cpath d=%22M22 21v-2a4 4 0 0 0-3-3.87%22 /%3E %3Ccircle cx=%229%22 cy=%227%22 r=%224%22 /%3E %3C/svg%3E");
+body .fa-balance-scale {
+    -webkit-mask-image: url("../icons/scale.svg");
+    mask-image: url("../icons/scale.svg");
 }
 
-body .leftmenu .fa-puzzle-piece {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z%22 /%3E %3C/svg%3E");
+body .fa-ban {
+    -webkit-mask-image: url("../icons/ban.svg");
+    mask-image: url("../icons/ban.svg");
 }
 
-body .leftmenu .fa-circle-nodes {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m10.586 5.414-5.172 5.172%22 /%3E %3Cpath d=%22m18.586 13.414-5.172 5.172%22 /%3E %3Cpath d=%22M6 12h12%22 /%3E %3Ccircle cx=%2212%22 cy=%2220%22 r=%222%22 /%3E %3Ccircle cx=%2212%22 cy=%224%22 r=%222%22 /%3E %3Ccircle cx=%2220%22 cy=%2212%22 r=%222%22 /%3E %3Ccircle cx=%224%22 cy=%2212%22 r=%222%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m10.586 5.414-5.172 5.172%22 /%3E %3Cpath d=%22m18.586 13.414-5.172 5.172%22 /%3E %3Cpath d=%22M6 12h12%22 /%3E %3Ccircle cx=%2212%22 cy=%2220%22 r=%222%22 /%3E %3Ccircle cx=%2212%22 cy=%224%22 r=%222%22 /%3E %3Ccircle cx=%2220%22 cy=%2212%22 r=%222%22 /%3E %3Ccircle cx=%224%22 cy=%2212%22 r=%222%22 /%3E %3C/svg%3E");
+body .fa-bar-chart {
+    -webkit-mask-image: url("../icons/bar-chart.svg");
+    mask-image: url("../icons/bar-chart.svg");
 }
 
-body .leftmenu .fa-cogs {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915%22 /%3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%223%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915%22 /%3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%223%22 /%3E %3C/svg%3E");
+body .fa-barcode {
+    -webkit-mask-image: url("../icons/barcode.svg");
+    mask-image: url("../icons/barcode.svg");
 }
 
-body .leftmenu .fa-cog {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915%22 /%3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%223%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915%22 /%3E %3Ccircle cx=%2212%22 cy=%2212%22 r=%223%22 /%3E %3C/svg%3E");
+body .fa-bars {
+    -webkit-mask-image: url("../icons/menu.svg");
+    mask-image: url("../icons/menu.svg");
 }
 
-body .leftmenu .fa-angle-right {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m9 18 6-6-6-6%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m9 18 6-6-6-6%22 /%3E %3C/svg%3E");
+body .fa-bars-progress {
+    -webkit-mask-image: url("../icons/list-checks.svg");
+    mask-image: url("../icons/list-checks.svg");
 }
 
-body .leftmenu .fa-angle-down {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m6 9 6 6 6-6%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m6 9 6 6 6-6%22 /%3E %3C/svg%3E");
+body .fa-bell {
+    -webkit-mask-image: url("../icons/bell.svg");
+    mask-image: url("../icons/bell.svg");
 }
 
-body .leftmenu .fa-caret-down {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m6 9 6 6 6-6%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m6 9 6 6 6-6%22 /%3E %3C/svg%3E");
+body .fa-bell-concierge {
+    -webkit-mask-image: url("../icons/concierge-bell.svg");
+    mask-image: url("../icons/concierge-bell.svg");
 }
 
-body .leftmenu .fa-caret-right {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m9 18 6-6-6-6%22 /%3E %3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 %3E %3Cpath d=%22m9 18 6-6-6-6%22 /%3E %3C/svg%3E");
+body .fa-bell-slash {
+    -webkit-mask-image: url("../icons/bell-off.svg");
+    mask-image: url("../icons/bell-off.svg");
+}
+
+body .fa-binoculars {
+    -webkit-mask-image: url("../icons/binoculars.svg");
+    mask-image: url("../icons/binoculars.svg");
+}
+
+body .fa-birthday-cake {
+    -webkit-mask-image: url("../icons/cake.svg");
+    mask-image: url("../icons/cake.svg");
+}
+
+body .fa-bolt {
+    -webkit-mask-image: url("../icons/bolt.svg");
+    mask-image: url("../icons/bolt.svg");
+}
+
+body .fa-bolt-lightning {
+    -webkit-mask-image: url("../icons/zap.svg");
+    mask-image: url("../icons/zap.svg");
+}
+
+body .fa-book {
+    -webkit-mask-image: url("../icons/book-open.svg");
+    mask-image: url("../icons/book-open.svg");
+}
+
+body .fa-bookmark {
+    -webkit-mask-image: url("../icons/bookmark.svg");
+    mask-image: url("../icons/bookmark.svg");
+}
+
+body .fa-border-none {
+    -webkit-mask-image: url("../icons/square-dashed.svg");
+    mask-image: url("../icons/square-dashed.svg");
+}
+
+body .fa-boxes-stacked {
+    -webkit-mask-image: url("../icons/boxes.svg");
+    mask-image: url("../icons/boxes.svg");
+}
+
+body .fa-brain {
+    -webkit-mask-image: url("../icons/brain.svg");
+    mask-image: url("../icons/brain.svg");
+}
+
+body .fa-briefcase {
+    -webkit-mask-image: url("../icons/briefcase.svg");
+    mask-image: url("../icons/briefcase.svg");
+}
+
+body .fa-bug {
+    -webkit-mask-image: url("../icons/bug.svg");
+    mask-image: url("../icons/bug.svg");
+}
+
+body .fa-building {
+    -webkit-mask-image: url("../icons/building-2.svg");
+    mask-image: url("../icons/building-2.svg");
+}
+
+body .fa-bullhorn {
+    -webkit-mask-image: url("../icons/megaphone.svg");
+    mask-image: url("../icons/megaphone.svg");
+}
+
+body .fa-bullseye {
+    -webkit-mask-image: url("../icons/target.svg");
+    mask-image: url("../icons/target.svg");
+}
+
+body .fa-business-time {
+    -webkit-mask-image: url("../icons/clock.svg");
+    mask-image: url("../icons/clock.svg");
+}
+
+body .fa-calendar {
+    -webkit-mask-image: url("../icons/calendar.svg");
+    mask-image: url("../icons/calendar.svg");
+}
+
+body .fa-calendar-alt {
+    -webkit-mask-image: url("../icons/calendar-days.svg");
+    mask-image: url("../icons/calendar-days.svg");
+}
+
+body .fa-calendar-check {
+    -webkit-mask-image: url("../icons/calendar-check.svg");
+    mask-image: url("../icons/calendar-check.svg");
+}
+
+body .fa-calendar-plus {
+    -webkit-mask-image: url("../icons/calendar-plus.svg");
+    mask-image: url("../icons/calendar-plus.svg");
+}
+
+body .fa-calendar-week {
+    -webkit-mask-image: url("../icons/calendar-days.svg");
+    mask-image: url("../icons/calendar-days.svg");
+}
+
+body .fa-calendar-xmark {
+    -webkit-mask-image: url("../icons/calendar-x.svg");
+    mask-image: url("../icons/calendar-x.svg");
+}
+
+body .fa-camera {
+    -webkit-mask-image: url("../icons/camera.svg");
+    mask-image: url("../icons/camera.svg");
+}
+
+body .fa-caret-down {
+    -webkit-mask-image: url("../icons/chevron-down.svg");
+    mask-image: url("../icons/chevron-down.svg");
+}
+
+body .fa-caret-up {
+    -webkit-mask-image: url("../icons/chevron-up.svg");
+    mask-image: url("../icons/chevron-up.svg");
+}
+
+body .fa-certificate {
+    -webkit-mask-image: url("../icons/certificate.svg");
+    mask-image: url("../icons/certificate.svg");
+}
+
+body .fa-chart-bar {
+    -webkit-mask-image: url("../icons/chart-column.svg");
+    mask-image: url("../icons/chart-column.svg");
+}
+
+body .fa-chart-gantt {
+    -webkit-mask-image: url("../icons/chart-gantt.svg");
+    mask-image: url("../icons/chart-gantt.svg");
+}
+
+body .fa-chart-line {
+    -webkit-mask-image: url("../icons/chart-line.svg");
+    mask-image: url("../icons/chart-line.svg");
+}
+
+body .fa-check {
+    -webkit-mask-image: url("../icons/check.svg");
+    mask-image: url("../icons/check.svg");
+}
+
+body .fa-check-circle {
+    -webkit-mask-image: url("../icons/check-circle.svg");
+    mask-image: url("../icons/check-circle.svg");
+}
+
+body .fa-check-square {
+    -webkit-mask-image: url("../icons/check-square.svg");
+    mask-image: url("../icons/check-square.svg");
+}
+
+body .fa-chess {
+    -webkit-mask-image: url("../icons/swords.svg");
+    mask-image: url("../icons/swords.svg");
+}
+
+body .fa-chess-board {
+    -webkit-mask-image: url("../icons/grid-2x2.svg");
+    mask-image: url("../icons/grid-2x2.svg");
+}
+
+body .fa-chevron-down {
+    -webkit-mask-image: url("../icons/chevron-down.svg");
+    mask-image: url("../icons/chevron-down.svg");
+}
+
+body .fa-chevron-left {
+    -webkit-mask-image: url("../icons/chevron-left.svg");
+    mask-image: url("../icons/chevron-left.svg");
+}
+
+body .fa-chevron-right {
+    -webkit-mask-image: url("../icons/chevron-right.svg");
+    mask-image: url("../icons/chevron-right.svg");
+}
+
+body .fa-circle {
+    -webkit-mask-image: url("../icons/circle.svg");
+    mask-image: url("../icons/circle.svg");
+}
+
+body .fa-circle-check {
+    -webkit-mask-image: url("../icons/circle-check.svg");
+    mask-image: url("../icons/circle-check.svg");
+}
+
+body .fa-circle-dot {
+    -webkit-mask-image: url("../icons/circle-dot.svg");
+    mask-image: url("../icons/circle-dot.svg");
+}
+
+body .fa-circle-exclamation {
+    -webkit-mask-image: url("../icons/circle-alert.svg");
+    mask-image: url("../icons/circle-alert.svg");
+}
+
+body .fa-circle-h {
+    -webkit-mask-image: url("../icons/circle-help.svg");
+    mask-image: url("../icons/circle-help.svg");
+}
+
+body .fa-circle-info {
+    -webkit-mask-image: url("../icons/info.svg");
+    mask-image: url("../icons/info.svg");
+}
+
+body .fa-circle-nodes {
+    -webkit-mask-image: url("../icons/waypoints.svg");
+    mask-image: url("../icons/waypoints.svg");
+}
+
+body .fa-circle-notch {
+    -webkit-mask-image: url("../icons/loader-circle.svg");
+    mask-image: url("../icons/loader-circle.svg");
+}
+
+body .fa-circle-pause {
+    -webkit-mask-image: url("../icons/circle-pause.svg");
+    mask-image: url("../icons/circle-pause.svg");
+}
+
+body .fa-circle-play {
+    -webkit-mask-image: url("../icons/circle-play.svg");
+    mask-image: url("../icons/circle-play.svg");
+}
+
+body .fa-circle-plus {
+    -webkit-mask-image: url("../icons/circle-plus.svg");
+    mask-image: url("../icons/circle-plus.svg");
+}
+
+body .fa-circle-question {
+    -webkit-mask-image: url("../icons/circle-question-mark.svg");
+    mask-image: url("../icons/circle-question-mark.svg");
+}
+
+body .fa-circle-stop {
+    -webkit-mask-image: url("../icons/circle-stop.svg");
+    mask-image: url("../icons/circle-stop.svg");
+}
+
+body .fa-circle-xmark {
+    -webkit-mask-image: url("../icons/circle-x.svg");
+    mask-image: url("../icons/circle-x.svg");
+}
+
+body .fa-city {
+    -webkit-mask-image: url("../icons/building.svg");
+    mask-image: url("../icons/building.svg");
+}
+
+body .fa-clock {
+    -webkit-mask-image: url("../icons/clock.svg");
+    mask-image: url("../icons/clock.svg");
+}
+
+body .fa-clock-o {
+    -webkit-mask-image: url("../icons/clock.svg");
+    mask-image: url("../icons/clock.svg");
+}
+
+body .fa-clock-rotate-left {
+    -webkit-mask-image: url("../icons/history.svg");
+    mask-image: url("../icons/history.svg");
+}
+
+body .fa-clone {
+    -webkit-mask-image: url("../icons/copy.svg");
+    mask-image: url("../icons/copy.svg");
+}
+
+body .fa-close {
+    -webkit-mask-image: url("../icons/x.svg");
+    mask-image: url("../icons/x.svg");
+}
+
+body .fa-code-branch {
+    -webkit-mask-image: url("../icons/git-branch.svg");
+    mask-image: url("../icons/git-branch.svg");
+}
+
+body .fa-cog {
+    -webkit-mask-image: url("../icons/settings.svg");
+    mask-image: url("../icons/settings.svg");
+}
+
+body .fa-cogs {
+    -webkit-mask-image: url("../icons/settings.svg");
+    mask-image: url("../icons/settings.svg");
+}
+
+body .fa-coins {
+    -webkit-mask-image: url("../icons/coins.svg");
+    mask-image: url("../icons/coins.svg");
+}
+
+body .fa-columns {
+    -webkit-mask-image: url("../icons/columns-3.svg");
+    mask-image: url("../icons/columns-3.svg");
+}
+
+body .fa-comment {
+    -webkit-mask-image: url("../icons/message-square.svg");
+    mask-image: url("../icons/message-square.svg");
+}
+
+body .fa-comment-slash {
+    -webkit-mask-image: url("../icons/message-square.svg");
+    mask-image: url("../icons/message-square.svg");
+}
+
+body .fa-comments {
+    -webkit-mask-image: url("../icons/messages-square.svg");
+    mask-image: url("../icons/messages-square.svg");
+}
+
+body .fa-comments-dollar {
+    -webkit-mask-image: url("../icons/messages-square.svg");
+    mask-image: url("../icons/messages-square.svg");
+}
+
+body .fa-compass {
+    -webkit-mask-image: url("../icons/compass.svg");
+    mask-image: url("../icons/compass.svg");
+}
+
+body .fa-compass-drafting {
+    -webkit-mask-image: url("../icons/compass.svg");
+    mask-image: url("../icons/compass.svg");
+}
+
+body .fa-copy {
+    -webkit-mask-image: url("../icons/copy.svg");
+    mask-image: url("../icons/copy.svg");
+}
+
+body .fa-database {
+    -webkit-mask-image: url("../icons/database.svg");
+    mask-image: url("../icons/database.svg");
+}
+
+body .fa-desktop {
+    -webkit-mask-image: url("../icons/monitor.svg");
+    mask-image: url("../icons/monitor.svg");
+}
+
+body .fa-diagram-next {
+    -webkit-mask-image: url("../icons/workflow.svg");
+    mask-image: url("../icons/workflow.svg");
+}
+
+body .fa-diagram-predecessor {
+    -webkit-mask-image: url("../icons/workflow.svg");
+    mask-image: url("../icons/workflow.svg");
+}
+
+body .fa-diagram-project {
+    -webkit-mask-image: url("../icons/network.svg");
+    mask-image: url("../icons/network.svg");
+}
+
+body .fa-diagram-successor {
+    -webkit-mask-image: url("../icons/workflow.svg");
+    mask-image: url("../icons/workflow.svg");
+}
+
+body .fa-dollar-sign {
+    -webkit-mask-image: url("../icons/dollar-sign.svg");
+    mask-image: url("../icons/dollar-sign.svg");
+}
+
+body .fa-down {
+    -webkit-mask-image: url("../icons/arrow-down.svg");
+    mask-image: url("../icons/arrow-down.svg");
+}
+
+body .fa-download {
+    -webkit-mask-image: url("../icons/download.svg");
+    mask-image: url("../icons/download.svg");
+}
+
+body .fa-draw-polygon {
+    -webkit-mask-image: url("../icons/shapes.svg");
+    mask-image: url("../icons/shapes.svg");
+}
+
+body .fa-dumbbell {
+    -webkit-mask-image: url("../icons/dumbbell.svg");
+    mask-image: url("../icons/dumbbell.svg");
+}
+
+body .fa-edit {
+    -webkit-mask-image: url("../icons/pencil.svg");
+    mask-image: url("../icons/pencil.svg");
+}
+
+body .fa-ellipsis {
+    -webkit-mask-image: url("../icons/ellipsis.svg");
+    mask-image: url("../icons/ellipsis.svg");
+}
+
+body .fa-ellipsis-h {
+    -webkit-mask-image: url("../icons/ellipsis.svg");
+    mask-image: url("../icons/ellipsis.svg");
+}
+
+body .fa-ellipsis-v {
+    -webkit-mask-image: url("../icons/ellipsis-vertical.svg");
+    mask-image: url("../icons/ellipsis-vertical.svg");
+}
+
+body .fa-envelope {
+    -webkit-mask-image: url("../icons/mail.svg");
+    mask-image: url("../icons/mail.svg");
+}
+
+body .fa-exclamation-triangle {
+    -webkit-mask-image: url("../icons/triangle-alert.svg");
+    mask-image: url("../icons/triangle-alert.svg");
+}
+
+body .fa-external-link {
+    -webkit-mask-image: url("../icons/external-link.svg");
+    mask-image: url("../icons/external-link.svg");
+}
+
+body .fa-eye {
+    -webkit-mask-image: url("../icons/eye.svg");
+    mask-image: url("../icons/eye.svg");
+}
+
+body .fa-eye-slash {
+    -webkit-mask-image: url("../icons/eye-off.svg");
+    mask-image: url("../icons/eye-off.svg");
+}
+
+body .fa-face-smile {
+    -webkit-mask-image: url("../icons/smile.svg");
+    mask-image: url("../icons/smile.svg");
+}
+
+body .fa-file {
+    -webkit-mask-image: url("../icons/file.svg");
+    mask-image: url("../icons/file.svg");
+}
+
+body .fa-file-alt {
+    -webkit-mask-image: url("../icons/file-text.svg");
+    mask-image: url("../icons/file-text.svg");
+}
+
+body .fa-file-excel {
+    -webkit-mask-image: url("../icons/file-text.svg");
+    mask-image: url("../icons/file-text.svg");
+}
+
+body .fa-file-export {
+    -webkit-mask-image: url("../icons/file-output.svg");
+    mask-image: url("../icons/file-output.svg");
+}
+
+body .fa-file-import {
+    -webkit-mask-image: url("../icons/file-input.svg");
+    mask-image: url("../icons/file-input.svg");
+}
+
+body .fa-file-lines {
+    -webkit-mask-image: url("../icons/file-text.svg");
+    mask-image: url("../icons/file-text.svg");
+}
+
+body .fa-file-pdf {
+    -webkit-mask-image: url("../icons/file-text.svg");
+    mask-image: url("../icons/file-text.svg");
+}
+
+body .fa-file-word {
+    -webkit-mask-image: url("../icons/file-text.svg");
+    mask-image: url("../icons/file-text.svg");
+}
+
+body .fa-file-zipper {
+    -webkit-mask-image: url("../icons/file-archive.svg");
+    mask-image: url("../icons/file-archive.svg");
+}
+
+body .fa-filter {
+    -webkit-mask-image: url("../icons/funnel.svg");
+    mask-image: url("../icons/funnel.svg");
+}
+
+body .fa-fire {
+    -webkit-mask-image: url("../icons/flame.svg");
+    mask-image: url("../icons/flame.svg");
+}
+
+body .fa-flag {
+    -webkit-mask-image: url("../icons/flag.svg");
+    mask-image: url("../icons/flag.svg");
+}
+
+body .fa-flag-checkered {
+    -webkit-mask-image: url("../icons/flag.svg");
+    mask-image: url("../icons/flag.svg");
+}
+
+body .fa-flask {
+    -webkit-mask-image: url("../icons/flask-conical.svg");
+    mask-image: url("../icons/flask-conical.svg");
+}
+
+body .fa-folder {
+    -webkit-mask-image: url("../icons/folder.svg");
+    mask-image: url("../icons/folder.svg");
+}
+
+body .fa-folder-open {
+    -webkit-mask-image: url("../icons/folder-open.svg");
+    mask-image: url("../icons/folder-open.svg");
+}
+
+body .fa-folder-tree {
+    -webkit-mask-image: url("../icons/folder-tree.svg");
+    mask-image: url("../icons/folder-tree.svg");
+}
+
+body .fa-gauge-high {
+    -webkit-mask-image: url("../icons/gauge.svg");
+    mask-image: url("../icons/gauge.svg");
+}
+
+body .fa-gauge-simple-high {
+    -webkit-mask-image: url("../icons/gauge.svg");
+    mask-image: url("../icons/gauge.svg");
+}
+
+body .fa-gears {
+    -webkit-mask-image: url("../icons/settings.svg");
+    mask-image: url("../icons/settings.svg");
+}
+
+body .fa-gem {
+    -webkit-mask-image: url("../icons/gem.svg");
+    mask-image: url("../icons/gem.svg");
+}
+
+body .fa-ghost {
+    -webkit-mask-image: url("../icons/ghost.svg");
+    mask-image: url("../icons/ghost.svg");
+}
+
+body .fa-globe {
+    -webkit-mask-image: url("../icons/globe.svg");
+    mask-image: url("../icons/globe.svg");
+}
+
+body .fa-graduation-cap {
+    -webkit-mask-image: url("../icons/graduation-cap.svg");
+    mask-image: url("../icons/graduation-cap.svg");
+}
+
+body .fa-grip-vertical {
+    -webkit-mask-image: url("../icons/grip-vertical.svg");
+    mask-image: url("../icons/grip-vertical.svg");
+}
+
+body .fa-group {
+    -webkit-mask-image: url("../icons/group.svg");
+    mask-image: url("../icons/group.svg");
+}
+
+body .fa-hand-holding-dollar {
+    -webkit-mask-image: url("../icons/hand-coins.svg");
+    mask-image: url("../icons/hand-coins.svg");
+}
+
+body .fa-hand-holding-heart {
+    -webkit-mask-image: url("../icons/hand-heart.svg");
+    mask-image: url("../icons/hand-heart.svg");
+}
+
+body .fa-hand-spock {
+    -webkit-mask-image: url("../icons/hand.svg");
+    mask-image: url("../icons/hand.svg");
+}
+
+body .fa-handshake {
+    -webkit-mask-image: url("../icons/handshake.svg");
+    mask-image: url("../icons/handshake.svg");
+}
+
+body .fa-heading {
+    -webkit-mask-image: url("../icons/heading.svg");
+    mask-image: url("../icons/heading.svg");
+}
+
+body .fa-heart {
+    -webkit-mask-image: url("../icons/heart.svg");
+    mask-image: url("../icons/heart.svg");
+}
+
+body .fa-heart-circle-check {
+    -webkit-mask-image: url("../icons/heart.svg");
+    mask-image: url("../icons/heart.svg");
+}
+
+body .fa-home {
+    -webkit-mask-image: url("../icons/house.svg");
+    mask-image: url("../icons/house.svg");
+}
+
+body .fa-house {
+    -webkit-mask-image: url("../icons/house.svg");
+    mask-image: url("../icons/house.svg");
+}
+
+body .fa-house-flag {
+    -webkit-mask-image: url("../icons/house.svg");
+    mask-image: url("../icons/house.svg");
+}
+
+body .fa-house-laptop {
+    -webkit-mask-image: url("../icons/house.svg");
+    mask-image: url("../icons/house.svg");
+}
+
+body .fa-icons {
+    -webkit-mask-image: url("../icons/shapes.svg");
+    mask-image: url("../icons/shapes.svg");
+}
+
+body .fa-id-badge {
+    -webkit-mask-image: url("../icons/id-card.svg");
+    mask-image: url("../icons/id-card.svg");
+}
+
+body .fa-image {
+    -webkit-mask-image: url("../icons/image.svg");
+    mask-image: url("../icons/image.svg");
+}
+
+body .fa-info-circle {
+    -webkit-mask-image: url("../icons/info.svg");
+    mask-image: url("../icons/info.svg");
+}
+
+body .fa-key {
+    -webkit-mask-image: url("../icons/key.svg");
+    mask-image: url("../icons/key.svg");
+}
+
+body .fa-laptop {
+    -webkit-mask-image: url("../icons/laptop.svg");
+    mask-image: url("../icons/laptop.svg");
+}
+
+body .fa-layer-group {
+    -webkit-mask-image: url("../icons/layers.svg");
+    mask-image: url("../icons/layers.svg");
+}
+
+body .fa-leaf {
+    -webkit-mask-image: url("../icons/leaf.svg");
+    mask-image: url("../icons/leaf.svg");
+}
+
+body .fa-life-ring {
+    -webkit-mask-image: url("../icons/life-buoy.svg");
+    mask-image: url("../icons/life-buoy.svg");
+}
+
+body .fa-lightbulb {
+    -webkit-mask-image: url("../icons/lightbulb.svg");
+    mask-image: url("../icons/lightbulb.svg");
+}
+
+body .fa-link {
+    -webkit-mask-image: url("../icons/link.svg");
+    mask-image: url("../icons/link.svg");
+}
+
+body .fa-list {
+    -webkit-mask-image: url("../icons/list.svg");
+    mask-image: url("../icons/list.svg");
+}
+
+body .fa-list-1-2 {
+    -webkit-mask-image: url("../icons/list-ordered.svg");
+    mask-image: url("../icons/list-ordered.svg");
+}
+
+body .fa-list-check {
+    -webkit-mask-image: url("../icons/list-checks.svg");
+    mask-image: url("../icons/list-checks.svg");
+}
+
+body .fa-list-ul {
+    -webkit-mask-image: url("../icons/list.svg");
+    mask-image: url("../icons/list.svg");
+}
+
+body .fa-location-arrow {
+    -webkit-mask-image: url("../icons/navigation.svg");
+    mask-image: url("../icons/navigation.svg");
+}
+
+body .fa-lock {
+    -webkit-mask-image: url("../icons/lock.svg");
+    mask-image: url("../icons/lock.svg");
+}
+
+body .fa-lock-open {
+    -webkit-mask-image: url("../icons/lock-open.svg");
+    mask-image: url("../icons/lock-open.svg");
+}
+
+body .fa-magnifying-glass {
+    -webkit-mask-image: url("../icons/search.svg");
+    mask-image: url("../icons/search.svg");
+}
+
+body .fa-map {
+    -webkit-mask-image: url("../icons/map.svg");
+    mask-image: url("../icons/map.svg");
+}
+
+body .fa-map-location {
+    -webkit-mask-image: url("../icons/map-pin.svg");
+    mask-image: url("../icons/map-pin.svg");
+}
+
+body .fa-map-signs {
+    -webkit-mask-image: url("../icons/signpost.svg");
+    mask-image: url("../icons/signpost.svg");
+}
+
+body .fa-message {
+    -webkit-mask-image: url("../icons/message-square.svg");
+    mask-image: url("../icons/message-square.svg");
+}
+
+body .fa-minus {
+    -webkit-mask-image: url("../icons/minus.svg");
+    mask-image: url("../icons/minus.svg");
+}
+
+body .fa-mobile {
+    -webkit-mask-image: url("../icons/smartphone.svg");
+    mask-image: url("../icons/smartphone.svg");
+}
+
+body .fa-money-bill {
+    -webkit-mask-image: url("../icons/banknote.svg");
+    mask-image: url("../icons/banknote.svg");
+}
+
+body .fa-money-bill-alt {
+    -webkit-mask-image: url("../icons/banknote.svg");
+    mask-image: url("../icons/banknote.svg");
+}
+
+body .fa-moon {
+    -webkit-mask-image: url("../icons/moon.svg");
+    mask-image: url("../icons/moon.svg");
+}
+
+body .fa-mountain {
+    -webkit-mask-image: url("../icons/mountain.svg");
+    mask-image: url("../icons/mountain.svg");
+}
+
+body .fa-note-sticky {
+    -webkit-mask-image: url("../icons/sticky-note.svg");
+    mask-image: url("../icons/sticky-note.svg");
+}
+
+body .fa-object-group {
+    -webkit-mask-image: url("../icons/group.svg");
+    mask-image: url("../icons/group.svg");
+}
+
+body .fa-off {
+    -webkit-mask-image: url("../icons/power.svg");
+    mask-image: url("../icons/power.svg");
+}
+
+body .fa-open {
+    -webkit-mask-image: url("../icons/folder-open.svg");
+    mask-image: url("../icons/folder-open.svg");
+}
+
+body .fa-paintbrush {
+    -webkit-mask-image: url("../icons/paintbrush.svg");
+    mask-image: url("../icons/paintbrush.svg");
+}
+
+body .fa-palette {
+    -webkit-mask-image: url("../icons/palette.svg");
+    mask-image: url("../icons/palette.svg");
+}
+
+body .fa-panorama {
+    -webkit-mask-image: url("../icons/image.svg");
+    mask-image: url("../icons/image.svg");
+}
+
+body .fa-paper-plane {
+    -webkit-mask-image: url("../icons/send.svg");
+    mask-image: url("../icons/send.svg");
+}
+
+body .fa-paperclip {
+    -webkit-mask-image: url("../icons/paperclip.svg");
+    mask-image: url("../icons/paperclip.svg");
+}
+
+body .fa-pen {
+    -webkit-mask-image: url("../icons/pen.svg");
+    mask-image: url("../icons/pen.svg");
+}
+
+body .fa-pen-ruler {
+    -webkit-mask-image: url("../icons/pencil.svg");
+    mask-image: url("../icons/pencil.svg");
+}
+
+body .fa-pen-to-square {
+    -webkit-mask-image: url("../icons/square-pen.svg");
+    mask-image: url("../icons/square-pen.svg");
+}
+
+body .fa-pencil {
+    -webkit-mask-image: url("../icons/pencil.svg");
+    mask-image: url("../icons/pencil.svg");
+}
+
+body .fa-people-arrows {
+    -webkit-mask-image: url("../icons/users.svg");
+    mask-image: url("../icons/users.svg");
+}
+
+body .fa-people-group {
+    -webkit-mask-image: url("../icons/users.svg");
+    mask-image: url("../icons/users.svg");
+}
+
+body .fa-person-circle-question {
+    -webkit-mask-image: url("../icons/circle-help.svg");
+    mask-image: url("../icons/circle-help.svg");
+}
+
+body .fa-person-falling {
+    -webkit-mask-image: url("../icons/person-standing.svg");
+    mask-image: url("../icons/person-standing.svg");
+}
+
+body .fa-phone {
+    -webkit-mask-image: url("../icons/phone.svg");
+    mask-image: url("../icons/phone.svg");
+}
+
+body .fa-picture {
+    -webkit-mask-image: url("../icons/image.svg");
+    mask-image: url("../icons/image.svg");
+}
+
+body .fa-picture-o {
+    -webkit-mask-image: url("../icons/image.svg");
+    mask-image: url("../icons/image.svg");
+}
+
+body .fa-plug {
+    -webkit-mask-image: url("../icons/plug.svg");
+    mask-image: url("../icons/plug.svg");
+}
+
+body .fa-plug-circle-check {
+    -webkit-mask-image: url("../icons/plug.svg");
+    mask-image: url("../icons/plug.svg");
+}
+
+body .fa-plug-circle-xmark {
+    -webkit-mask-image: url("../icons/plug.svg");
+    mask-image: url("../icons/plug.svg");
+}
+
+body .fa-plus {
+    -webkit-mask-image: url("../icons/plus.svg");
+    mask-image: url("../icons/plus.svg");
+}
+
+body .fa-plus-circle {
+    -webkit-mask-image: url("../icons/circle-plus.svg");
+    mask-image: url("../icons/circle-plus.svg");
+}
+
+body .fa-plus-square {
+    -webkit-mask-image: url("../icons/plus-square.svg");
+    mask-image: url("../icons/plus-square.svg");
+}
+
+body .fa-print {
+    -webkit-mask-image: url("../icons/printer.svg");
+    mask-image: url("../icons/printer.svg");
+}
+
+body .fa-pushpin {
+    -webkit-mask-image: url("../icons/pin.svg");
+    mask-image: url("../icons/pin.svg");
+}
+
+body .fa-puzzle-piece {
+    -webkit-mask-image: url("../icons/puzzle.svg");
+    mask-image: url("../icons/puzzle.svg");
+}
+
+body .fa-question {
+    -webkit-mask-image: url("../icons/circle-question-mark.svg");
+    mask-image: url("../icons/circle-question-mark.svg");
+}
+
+body .fa-question-circle {
+    -webkit-mask-image: url("../icons/circle-question-mark.svg");
+    mask-image: url("../icons/circle-question-mark.svg");
+}
+
+body .fa-quote-left {
+    -webkit-mask-image: url("../icons/quote.svg");
+    mask-image: url("../icons/quote.svg");
+}
+
+body .fa-ranking-star {
+    -webkit-mask-image: url("../icons/trophy.svg");
+    mask-image: url("../icons/trophy.svg");
+}
+
+body .fa-rectangle-list {
+    -webkit-mask-image: url("../icons/list.svg");
+    mask-image: url("../icons/list.svg");
+}
+
+body .fa-refresh {
+    -webkit-mask-image: url("../icons/refresh-cw.svg");
+    mask-image: url("../icons/refresh-cw.svg");
+}
+
+body .fa-reply {
+    -webkit-mask-image: url("../icons/reply.svg");
+    mask-image: url("../icons/reply.svg");
+}
+
+body .fa-road {
+    -webkit-mask-image: url("../icons/road.svg");
+    mask-image: url("../icons/road.svg");
+}
+
+body .fa-rocket {
+    -webkit-mask-image: url("../icons/rocket.svg");
+    mask-image: url("../icons/rocket.svg");
+}
+
+body .fa-rotate {
+    -webkit-mask-image: url("../icons/rotate-cw.svg");
+    mask-image: url("../icons/rotate-cw.svg");
+}
+
+body .fa-satellite-dish {
+    -webkit-mask-image: url("../icons/satellite-dish.svg");
+    mask-image: url("../icons/satellite-dish.svg");
+}
+
+body .fa-scale-unbalanced {
+    -webkit-mask-image: url("../icons/scale.svg");
+    mask-image: url("../icons/scale.svg");
+}
+
+body .fa-scissors {
+    -webkit-mask-image: url("../icons/scissors.svg");
+    mask-image: url("../icons/scissors.svg");
+}
+
+body .fa-seedling {
+    -webkit-mask-image: url("../icons/sprout.svg");
+    mask-image: url("../icons/sprout.svg");
+}
+
+body .fa-shield-halved {
+    -webkit-mask-image: url("../icons/shield.svg");
+    mask-image: url("../icons/shield.svg");
+}
+
+body .fa-shop {
+    -webkit-mask-image: url("../icons/store.svg");
+    mask-image: url("../icons/store.svg");
+}
+
+body .fa-shopping-cart {
+    -webkit-mask-image: url("../icons/shopping-cart.svg");
+    mask-image: url("../icons/shopping-cart.svg");
+}
+
+body .fa-sign-out-alt {
+    -webkit-mask-image: url("../icons/log-out.svg");
+    mask-image: url("../icons/log-out.svg");
+}
+
+body .fa-signal {
+    -webkit-mask-image: url("../icons/signal.svg");
+    mask-image: url("../icons/signal.svg");
+}
+
+body .fa-sitemap {
+    -webkit-mask-image: url("../icons/network.svg");
+    mask-image: url("../icons/network.svg");
+}
+
+body .fa-sliders {
+    -webkit-mask-image: url("../icons/sliders-horizontal.svg");
+    mask-image: url("../icons/sliders-horizontal.svg");
+}
+
+body .fa-sliders-h {
+    -webkit-mask-image: url("../icons/sliders-horizontal.svg");
+    mask-image: url("../icons/sliders-horizontal.svg");
+}
+
+body .fa-smile-o {
+    -webkit-mask-image: url("../icons/smile.svg");
+    mask-image: url("../icons/smile.svg");
+}
+
+body .fa-sort {
+    -webkit-mask-image: url("../icons/arrow-up-down.svg");
+    mask-image: url("../icons/arrow-up-down.svg");
+}
+
+body .fa-spinner {
+    -webkit-mask-image: url("../icons/loader.svg");
+    mask-image: url("../icons/loader.svg");
+}
+
+body .fa-square-full {
+    -webkit-mask-image: url("../icons/square.svg");
+    mask-image: url("../icons/square.svg");
+}
+
+body .fa-star {
+    -webkit-mask-image: url("../icons/star.svg");
+    mask-image: url("../icons/star.svg");
+}
+
+body .fa-stop {
+    -webkit-mask-image: url("../icons/square.svg");
+    mask-image: url("../icons/square.svg");
+}
+
+body .fa-store {
+    -webkit-mask-image: url("../icons/store.svg");
+    mask-image: url("../icons/store.svg");
+}
+
+body .fa-suitcase {
+    -webkit-mask-image: url("../icons/briefcase.svg");
+    mask-image: url("../icons/briefcase.svg");
+}
+
+body .fa-sun {
+    -webkit-mask-image: url("../icons/sun.svg");
+    mask-image: url("../icons/sun.svg");
+}
+
+body .fa-table {
+    -webkit-mask-image: url("../icons/table.svg");
+    mask-image: url("../icons/table.svg");
+}
+
+body .fa-table-cells-large {
+    -webkit-mask-image: url("../icons/layout-grid.svg");
+    mask-image: url("../icons/layout-grid.svg");
+}
+
+body .fa-tachometer-alt {
+    -webkit-mask-image: url("../icons/gauge.svg");
+    mask-image: url("../icons/gauge.svg");
+}
+
+body .fa-tags {
+    -webkit-mask-image: url("../icons/tags.svg");
+    mask-image: url("../icons/tags.svg");
+}
+
+body .fa-th-large {
+    -webkit-mask-image: url("../icons/layout-grid.svg");
+    mask-image: url("../icons/layout-grid.svg");
+}
+
+body .fa-thermometer-full {
+    -webkit-mask-image: url("../icons/thermometer.svg");
+    mask-image: url("../icons/thermometer.svg");
+}
+
+body .fa-thermometer-half {
+    -webkit-mask-image: url("../icons/thermometer.svg");
+    mask-image: url("../icons/thermometer.svg");
+}
+
+body .fa-thermometer-quarter {
+    -webkit-mask-image: url("../icons/thermometer.svg");
+    mask-image: url("../icons/thermometer.svg");
+}
+
+body .fa-thermometer-three-quarters {
+    -webkit-mask-image: url("../icons/thermometer.svg");
+    mask-image: url("../icons/thermometer.svg");
+}
+
+body .fa-thumb-tack {
+    -webkit-mask-image: url("../icons/pin.svg");
+    mask-image: url("../icons/pin.svg");
+}
+
+body .fa-thumbs-down {
+    -webkit-mask-image: url("../icons/thumbs-down.svg");
+    mask-image: url("../icons/thumbs-down.svg");
+}
+
+body .fa-thumbs-up {
+    -webkit-mask-image: url("../icons/thumbs-up.svg");
+    mask-image: url("../icons/thumbs-up.svg");
+}
+
+body .fa-thumbtack {
+    -webkit-mask-image: url("../icons/pin.svg");
+    mask-image: url("../icons/pin.svg");
+}
+
+body .fa-times {
+    -webkit-mask-image: url("../icons/x.svg");
+    mask-image: url("../icons/x.svg");
+}
+
+body .fa-trash {
+    -webkit-mask-image: url("../icons/trash-2.svg");
+    mask-image: url("../icons/trash-2.svg");
+}
+
+body .fa-trash-alt {
+    -webkit-mask-image: url("../icons/trash-2.svg");
+    mask-image: url("../icons/trash-2.svg");
+}
+
+body .fa-trash-can {
+    -webkit-mask-image: url("../icons/trash-2.svg");
+    mask-image: url("../icons/trash-2.svg");
+}
+
+body .fa-tree {
+    -webkit-mask-image: url("../icons/tree-deciduous.svg");
+    mask-image: url("../icons/tree-deciduous.svg");
+}
+
+body .fa-triangle-exclamation {
+    -webkit-mask-image: url("../icons/triangle-alert.svg");
+    mask-image: url("../icons/triangle-alert.svg");
+}
+
+body .fa-trophy {
+    -webkit-mask-image: url("../icons/trophy.svg");
+    mask-image: url("../icons/trophy.svg");
+}
+
+body .fa-up {
+    -webkit-mask-image: url("../icons/arrow-up.svg");
+    mask-image: url("../icons/arrow-up.svg");
+}
+
+body .fa-up-right-and-down-left-from-center {
+    -webkit-mask-image: url("../icons/maximize.svg");
+    mask-image: url("../icons/maximize.svg");
+}
+
+body .fa-up-right-from-square {
+    -webkit-mask-image: url("../icons/external-link.svg");
+    mask-image: url("../icons/external-link.svg");
+}
+
+body .fa-upload {
+    -webkit-mask-image: url("../icons/upload.svg");
+    mask-image: url("../icons/upload.svg");
+}
+
+body .fa-user {
+    -webkit-mask-image: url("../icons/user.svg");
+    mask-image: url("../icons/user.svg");
+}
+
+body .fa-user-circle {
+    -webkit-mask-image: url("../icons/user-circle.svg");
+    mask-image: url("../icons/user-circle.svg");
+}
+
+body .fa-user-clock {
+    -webkit-mask-image: url("../icons/user.svg");
+    mask-image: url("../icons/user.svg");
+}
+
+body .fa-user-friends {
+    -webkit-mask-image: url("../icons/users.svg");
+    mask-image: url("../icons/users.svg");
+}
+
+body .fa-user-gear {
+    -webkit-mask-image: url("../icons/user-cog.svg");
+    mask-image: url("../icons/user-cog.svg");
+}
+
+body .fa-user-plus {
+    -webkit-mask-image: url("../icons/user-plus.svg");
+    mask-image: url("../icons/user-plus.svg");
+}
+
+body .fa-user-slash {
+    -webkit-mask-image: url("../icons/user-x.svg");
+    mask-image: url("../icons/user-x.svg");
+}
+
+body .fa-users {
+    -webkit-mask-image: url("../icons/users.svg");
+    mask-image: url("../icons/users.svg");
+}
+
+body .fa-utensils {
+    -webkit-mask-image: url("../icons/utensils.svg");
+    mask-image: url("../icons/utensils.svg");
+}
+
+body .fa-wand-magic-sparkles {
+    -webkit-mask-image: url("../icons/sparkles.svg");
+    mask-image: url("../icons/sparkles.svg");
+}
+
+body .fa-wrench {
+    -webkit-mask-image: url("../icons/wrench.svg");
+    mask-image: url("../icons/wrench.svg");
+}
+
+body .fa-x {
+    -webkit-mask-image: url("../icons/x.svg");
+    mask-image: url("../icons/x.svg");
+}
+
+body .fa-xmark {
+    -webkit-mask-image: url("../icons/x.svg");
+    mask-image: url("../icons/x.svg");
 }
