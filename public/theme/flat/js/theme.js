@@ -367,3 +367,77 @@
 
     document.addEventListener('htmx:afterSwap', install);
 })();
+
+/**
+ * Kanban drag-and-drop: make the drop land where the pointer is.
+ *
+ * Leantime's board runs jQuery UI sortable with the defaults `tolerance:
+ * 'intersect'` and a `cancel` list that includes every link. Two consequences on
+ * a board of tall cards:
+ *
+ *   intersect  the insertion point is decided by how much of the dragged card
+ *              overlaps a neighbour, so the drop position lags the cursor and
+ *              reads as 'shifted';
+ *   cancel: a  a card is mostly links, so grabbing it by its headline does
+ *              nothing and the draggable area shrinks to the few pixels of
+ *              padding between the text blocks.
+ *
+ * Switching to `tolerance: 'pointer'` puts the drop where the pointer is, and
+ * dropping `a` from the cancel list means the card can be picked up anywhere
+ * while a click still opens the ticket (jQuery UI's `distance: 10` decides
+ * between the two).
+ */
+(function () {
+    'use strict';
+
+    var CANCELLABLE = 'input, textarea, select, button, .dropdown-toggle, .tag-list, .chip, .lt-ico';
+
+    function tune() {
+        var $ = window.jQuery;
+
+        if (!$ || !$.fn || !$.fn.sortable) {
+            return;
+        }
+
+        var lists = document.querySelectorAll('.sortableTicketList .contentInner');
+
+        if (!lists.length) {
+            return;
+        }
+
+        [].forEach.call(lists, function (list) {
+            var $list = $(list);
+
+            if ($list.data('flatDragTuned')) {
+                return;
+            }
+
+            try {
+                $list.sortable('option', 'tolerance', 'pointer');
+                $list.sortable('option', 'cancel', CANCELLABLE);
+                $list.data('flatDragTuned', true);
+            } catch (e) {
+                /* sortable not initialised on this list yet; a later pass retries */
+            }
+        });
+    }
+
+    // The board builds its sortables on document ready and again after every
+    // htmx swap, so retry on both, and once shortly after to catch late boot.
+    function schedule() {
+        tune();
+        window.setTimeout(tune, 300);
+        window.setTimeout(tune, 1200);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', schedule);
+    } else {
+        schedule();
+    }
+
+    document.addEventListener('htmx:afterSwap', schedule);
+    document.body.addEventListener('click', function () {
+        window.setTimeout(tune, 200);
+    });
+})();

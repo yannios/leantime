@@ -2273,3 +2273,28 @@ body .lt-ico-unfold-vertical {
     -webkit-mask-image: url("../icons/unfold-vertical.svg");
     mask-image: url("../icons/unfold-vertical.svg");
 }
+
+/* --- Kanban drag and drop --------------------------------------------------
+   jQuery UI removes the dragged card from the flow and puts a placeholder of the
+   same height in its place - but it copies only the height, not the card's
+   margin-bottom (10px on .ticketBox). Every card below therefore jumped up 10px
+   the moment a drag started, which is what made the drop target feel offset.
+   Give the placeholder the same margin, keep its box model predictable, and
+   stop the dragged card from being rotated away from the cursor. */
+body .column .contentInner .ui-state-highlight {
+    box-sizing: border-box;
+    margin: 0 0 10px 0 !important;
+}
+
+body .ticketBox.tilt,
+body .ticketBox.tilt.left,
+body .ticketBox.tilt.right,
+body .ui-sortable-helper.tilt {
+    transform: none !important;
+}
+
+/* A column with two cards is a very small target; let the list reach further
+   down so the area under the last card still accepts a drop. */
+body .sortableTicketList .column .contentInner {
+    min-height: 140px;
+}
