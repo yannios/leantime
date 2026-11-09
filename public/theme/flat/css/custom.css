@@ -2275,26 +2275,39 @@ body .lt-ico-unfold-vertical {
 }
 
 /* --- Kanban drag and drop --------------------------------------------------
-   jQuery UI removes the dragged card from the flow and puts a placeholder of the
-   same height in its place - but it copies only the height, not the card's
-   margin-bottom (10px on .ticketBox). Every card below therefore jumped up 10px
-   the moment a drag started, which is what made the drop target feel offset.
-   Give the placeholder the same margin, keep its box model predictable, and
-   stop the dragged card from being rotated away from the cursor. */
-body .column .contentInner .ui-state-highlight {
-    box-sizing: border-box;
-    margin: 0 0 10px 0 !important;
+   jQuery UI replaces the dragged card with a placeholder of the same height but
+   not the same margin, so every card below shifted by that margin the moment a
+   drag began - it read as the drop target drifting away.
+
+   Rather than teach the placeholder about margins, the spacing is taken out of
+   the cards entirely: the column is a flex column with a gap, cards carry no
+   bottom margin, and the placeholder carries none either. Spacing is then owned
+   by the container and cannot differ between a card and its stand-in. */
+
+body .sortableTicketList .column .contentInner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 140px;
 }
 
+body .sortableTicketList .column .contentInner > .moveable,
+body .sortableTicketList .column .contentInner > .moveable.ticketBox {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+body .column .contentInner .ui-state-highlight {
+    box-sizing: border-box;
+    margin: 0 !important;
+    flex: 0 0 auto;
+}
+
+/* Keep the card under the cursor: the 3deg tilt Leantime adds made the dragged
+   card look offset from the pointer. */
 body .ticketBox.tilt,
 body .ticketBox.tilt.left,
 body .ticketBox.tilt.right,
 body .ui-sortable-helper.tilt {
     transform: none !important;
-}
-
-/* A column with two cards is a very small target; let the list reach further
-   down so the area under the last card still accepts a drop. */
-body .sortableTicketList .column .contentInner {
-    min-height: 140px;
 }

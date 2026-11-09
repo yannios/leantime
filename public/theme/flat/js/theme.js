@@ -416,6 +416,7 @@
                 $list.sortable('option', 'tolerance', 'pointer');
                 $list.sortable('option', 'cancel', CANCELLABLE);
                 $list.data('flatDragTuned', true);
+
             } catch (e) {
                 /* sortable not initialised on this list yet; a later pass retries */
             }
@@ -426,8 +427,9 @@
     // htmx swap, so retry on both, and once shortly after to catch late boot.
     function schedule() {
         tune();
-        window.setTimeout(tune, 300);
-        window.setTimeout(tune, 1200);
+        [300, 1200, 2500, 5000].forEach(function (delay) {
+            window.setTimeout(tune, delay);
+        });
     }
 
     if (document.readyState === 'loading') {
