@@ -2158,3 +2158,15 @@ body .sortable-list .sortable-list > .sortable-item::after {
     background: none !important;
     border: 0 !important;
 }
+
+/* --- Task card stripe ------------------------------------------------------
+   The left stripe is not decoration: .priority-border-1..5 and .commentStatus-*
+   paint it from the priority/status palette (deep red, red, yellow, green,
+   grey). Since it carries meaning it gets more presence instead of being
+   removed - 6px reads at a glance without shouting. */
+body .ticketBox,
+body .ticketBox .ticketBox,
+body .maincontent [class*="priority-border-"],
+body .maincontent [class*="commentStatus-"] {
+    border-left-width: 6px !important;
+}
