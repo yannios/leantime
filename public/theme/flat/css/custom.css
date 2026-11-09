@@ -183,7 +183,10 @@ body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) a {
     padding: 0 12px 0 30px;
     white-space: nowrap;
     overflow: hidden;
-    transition: background-color 0.16s ease, color 0.16s ease;
+    /* 300ms and !important: main.css ships a prefers-reduced-motion block that
+       forces `transition-duration: 0.01ms !important` on * , which silently killed
+       the fade on machines with 'animation effects' off. */
+    transition: background-color 300ms ease, color 300ms ease !important;
 }
 
 /* Group titles share one marker: Lucide's square-chevron-down, painted as a mask
