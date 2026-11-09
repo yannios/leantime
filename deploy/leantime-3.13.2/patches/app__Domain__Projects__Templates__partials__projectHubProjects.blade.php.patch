@@ -1,0 +1,20 @@
+--- a/app/Domain/Projects/Templates/partials/projectHubProjects.blade.php
++++ b/app/Domain/Projects/Templates/partials/projectHubProjects.blade.php
+@@ -44,7 +44,7 @@
+     @endif
+ 
+     <x-global::elements.accordion id="myProjectsHub-favorites" open onPage>
+-<x-slot:title>⭐ {{ __('headlines.my_favorites') }}</x-slot:title>
++<x-slot:title><span class="lt-ico lt-ico-star"></span>{{ __('headlines.my_favorites') }}</x-slot:title>
+             <div class="row">
+                 @php
+                     $hasFavorites = false;
+@@ -69,7 +69,7 @@
+ 
+ 
+     <x-global::elements.accordion id="myProjectsHub-otherProjects" open onPage>
+-<x-slot:title>🗂️ {{ __('headlines.all_assigned_projects') }}</x-slot:title>
++<x-slot:title><span class="lt-ico lt-ico-folder-kanban"></span>{{ __('headlines.all_assigned_projects') }}</x-slot:title>
+ 
+             <div class="row">
+                 @foreach ($allProjects as $project)

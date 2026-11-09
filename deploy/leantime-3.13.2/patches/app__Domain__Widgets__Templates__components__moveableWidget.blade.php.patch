@@ -1,0 +1,11 @@
+--- a/app/Domain/Widgets/Templates/components/moveableWidget.blade.php
++++ b/app/Domain/Widgets/Templates/components/moveableWidget.blade.php
+@@ -9,7 +9,7 @@
+                 </div>
+ 
+                 @if($name != '' && $noTitle == false)
+-                    <h5 class="subtitle tw-pb-m tw-float-left tw-mr-sm" style="margin-top:-5px;">{{ __($name) }}</h5>
++                    <h5 class="subtitle tw-pb-m tw-float-left tw-mr-sm" style="margin-top:-5px;">{!! __($name) !!}</h5>
+                 @endif
+                 <x-global::actions.dropdown trigger-class="editHeadline" class="tw-float-right">
+                     <li><a href="javascript:void(0)" class="fitContent"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> {{ __('label.resizeToFitContent', 'Resize to fit content') }}</a></li>

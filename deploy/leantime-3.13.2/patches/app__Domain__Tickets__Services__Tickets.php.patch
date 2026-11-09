@@ -1,0 +1,64 @@
+--- a/app/Domain/Tickets/Services/Tickets.php
++++ b/app/Domain/Tickets/Services/Tickets.php
+@@ -269,6 +269,23 @@
+      *
+      * @api
+      */
++    /**
++     * Tags used on the tickets of a project - the options of the tag filter.
++     *
++     * @return array<int, string>
++     *
++     * @api
++     */
++    #[RequiresPermission(TicketsPermissions::VIEW)]
++    public function getProjectTags(int $projectId): array
++    {
++        if ($projectId <= 0) {
++            return [];
++        }
++
++        return $this->ticketRepository->getTagsByProjectId($projectId);
++    }
++
+     #[RequiresPermission(TicketsPermissions::VIEW)]
+     public function getTicketTypes(): array
+     {
+@@ -318,6 +335,7 @@
+             'type' => '',
+             'excludeType' => 'milestone',
+             'milestone' => '',
++            'tags' => '',
+             'priority' => '',
+             'orderBy' => 'sortIndex',
+             'orderDirection' => 'DESC',
+@@ -339,6 +357,10 @@
+         if (isset($searchParams['status']) === true) {
+             $searchCriteria['status'] = $searchParams['status'];
+         }
++        if (isset($searchParams['tags']) === true) {
++            $searchCriteria['tags'] = $searchParams['tags'];
++        }
++
+ 
+         if (isset($searchParams['term']) === true) {
+             $searchCriteria['term'] = $searchParams['term'];
+@@ -420,6 +442,10 @@
+                 && $key != 'currentClient'
+                 && $key != 'sprint'
+                 && $key != 'orderDirection'
++                // excludeType is not a filter field: it carries the view's own
++                // default (e.g. "milestone" on the to-do list), so counting it
++                // made the filter badge show 1 with nothing selected.
++                && $key != 'excludeType'
+             ) {
+                 if ($value != '') {
+                     $count++;
+@@ -5393,6 +5419,7 @@
+             'priorities' => $priorities,
+             'types' => $types,
+             'ticketTypeIcons' => $ticketTypeIcons,
++            'projectTags' => $this->getProjectTags((int) session('currentProject')),
+             'numOfFilters' => $numOfFilters,
+             'onTheClock' => $onTheClock,
+             'sprints' => $sprints,

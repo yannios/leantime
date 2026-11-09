@@ -1,0 +1,86 @@
+[
+ {
+  "file": "app/Domain/Tickets/Services/Tickets.php",
+  "patch": "patches/app__Domain__Tickets__Services__Tickets.php.patch",
+  "changed": true,
+  "added": 27,
+  "removed": 0
+ },
+ {
+  "file": "app/Domain/Tickets/Repositories/Tickets.php",
+  "patch": "patches/app__Domain__Tickets__Repositories__Tickets.php.patch",
+  "changed": true,
+  "added": 59,
+  "removed": 0
+ },
+ {
+  "file": "app/Domain/Tickets/Templates/submodules/ticketFilter.blade.php",
+  "patch": "patches/app__Domain__Tickets__Templates__submodules__ticketFilter.blade.php.patch",
+  "changed": true,
+  "added": 13,
+  "removed": 0
+ },
+ {
+  "file": "app/Domain/Tickets/Controllers/ShowAllMilestonesOverview.php",
+  "patch": "patches/app__Domain__Tickets__Controllers__ShowAllMilestonesOverview.php.patch",
+  "changed": true,
+  "added": 1,
+  "removed": 0
+ },
+ {
+  "file": "app/Domain/Users/Services/Users.php",
+  "patch": "patches/app__Domain__Users__Services__Users.php.patch",
+  "changed": true,
+  "added": 75,
+  "removed": 0
+ },
+ {
+  "file": "app/Domain/Users/Controllers/NewUser.php",
+  "patch": "patches/app__Domain__Users__Controllers__NewUser.php.patch",
+  "changed": true,
+  "added": 43,
+  "removed": 1
+ },
+ {
+  "file": "app/Domain/Users/Templates/newUser.blade.php",
+  "patch": "patches/app__Domain__Users__Templates__newUser.blade.php.patch",
+  "changed": true,
+  "added": 13,
+  "removed": 0
+ },
+ {
+  "file": "app/Domain/Projects/Templates/projectHub.blade.php",
+  "patch": "patches/app__Domain__Projects__Templates__projectHub.blade.php.patch",
+  "changed": true,
+  "added": 1,
+  "removed": 1
+ },
+ {
+  "file": "app/Domain/Projects/Templates/partials/projectHubProjects.blade.php",
+  "patch": "patches/app__Domain__Projects__Templates__partials__projectHubProjects.blade.php.patch",
+  "changed": true,
+  "added": 2,
+  "removed": 2
+ },
+ {
+  "file": "app/Domain/Widgets/Templates/partials/myProjects.blade.php",
+  "patch": "patches/app__Domain__Widgets__Templates__partials__myProjects.blade.php.patch",
+  "changed": true,
+  "added": 2,
+  "removed": 2
+ },
+ {
+  "file": "app/Domain/Widgets/Templates/partials/welcome.blade.php",
+  "patch": "patches/app__Domain__Widgets__Templates__partials__welcome.blade.php.patch",
+  "changed": true,
+  "added": 5,
+  "removed": 5
+ },
+ {
+  "file": "app/Domain/Widgets/Templates/components/moveableWidget.blade.php",
+  "patch": "patches/app__Domain__Widgets__Templates__components__moveableWidget.blade.php.patch",
+  "changed": true,
+  "added": 1,
+  "removed": 1
+ }
+]

@@ -1,0 +1,46 @@
+--- a/app/Domain/Widgets/Templates/partials/welcome.blade.php
++++ b/app/Domain/Widgets/Templates/partials/welcome.blade.php
+@@ -13,7 +13,7 @@
+ 
+     <div style="padding:0px 0px">
+         <div style="font-size:18px; color:var(--main-titles-color); padding-bottom:15px; padding-top:8px">
+-            👋 {{ __('text.hi') }} {{ session()->get("userdata.name") }}
++            <span class="lt-ico lt-ico-hand"></span>{{ __('text.hi') }} {{ session()->get("userdata.name") }}
+ 
+             <div class="tw-float-right">
+                 <x-global::forms.button tag="a" link="{{ BASE_URL }}/users/editOwn#theme" contentRole="link" style="color:var(--main-titles-color); padding:0px; width:31px; line-height:31px; text-align: center;" data-tippy-content="{{ __('text.update_theme') }}">
+@@ -33,14 +33,14 @@
+ 
+             <div class="bigNumberBox tw-flex-1 tw-flex-grow">
+                 <div class="bigNumberBoxInner">
+-                    <div class="bigNumberBoxNumber">⏱️ {{ $doneTodayCount }}/{{ $totalTodayCount }} </div>
++                    <div class="bigNumberBoxNumber"><span class="lt-ico lt-ico-clock"></span> {{ $doneTodayCount }}/{{ $totalTodayCount }} </div>
+                     <div class="bigNumberBoxText">{{ __("welcome_widget.timeboxed_completed") }}</div>
+                 </div>
+             </div>
+ 
+             <div class="bigNumberBox tw-flex-1 tw-flex-grow">
+                 <div class="bigNumberBoxInner">
+-                    <div class="bigNumberBoxNumber">🥳 {{ $closedTicketsCount }} </div>
++                    <div class="bigNumberBoxNumber"><span class="lt-ico lt-ico-party-popper"></span> {{ $closedTicketsCount }} </div>
+                     <div class="bigNumberBoxText">{{ __("welcome_widget.tasks_completed") }}</div>
+                 </div>
+             </div>
+@@ -48,7 +48,7 @@
+             <div class="bigNumberBox tw-flex-1 tw-flex-grow ">
+ 
+                 <div class="bigNumberBoxInner">
+-                    <div class="bigNumberBoxNumber">📥 {{ $totalTickets }} </div>
++                    <div class="bigNumberBoxNumber"><span class="lt-ico lt-ico-inbox"></span> {{ $totalTickets }} </div>
+                     <div class="bigNumberBoxText">{{ __("welcome_widget.tasks_left") }}</div>
+                 </div>
+             </div>
+@@ -56,7 +56,7 @@
+             <div class="bigNumberBox tw-flex-1 tw-flex-grow">
+ 
+                 <div class="bigNumberBoxInner">
+-                    <div class="bigNumberBoxNumber">🎯 {{ $ticketsInGoals }} </div>
++                    <div class="bigNumberBoxNumber"><span class="lt-ico lt-ico-target"></span> {{ $ticketsInGoals }} </div>
+                     <div class="bigNumberBoxText">{{ __("welcome_widget.goals_contributing_to") }}</div>
+                 </div>
+             </div>

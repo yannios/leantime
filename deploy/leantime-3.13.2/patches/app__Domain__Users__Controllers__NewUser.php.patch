@@ -1,0 +1,55 @@
+--- a/app/Domain/Users/Controllers/NewUser.php
++++ b/app/Domain/Users/Controllers/NewUser.php
+@@ -68,9 +68,51 @@
+         $values = $this->getDefaultValues();
+         $projectrelation = [];
+ 
+-        if (isset($_POST['save'])) {
++        if (isset($_POST['saveDirect'])) {
+             $isManager = Auth::userHasRole(Roles::$manager);
+ 
++            $values = [
++                'firstname' => $_POST['firstname'],
++                'lastname' => $_POST['lastname'],
++                'user' => $_POST['user'],
++                'phone' => $_POST['phone'],
++                'role' => $_POST['role'],
++                'password' => '',
++                'pwReset' => '',
++                'status' => '',
++                'jobTitle' => $_POST['jobTitle'],
++                'jobLevel' => $_POST['jobLevel'],
++                'department' => $_POST['department'],
++                'clientId' => $isManager ? session('userdata.clientId') : $_POST['client'],
++            ];
++
++            if (isset($_POST['projects']) && is_array($_POST['projects'])) {
++                foreach ($_POST['projects'] as $project) {
++                    $projectrelation[] = $project;
++                }
++            }
++
++            $result = $this->userService->addUserWithoutInvite($_POST, session('userdata.clientId'), $isManager);
++
++            if ($result === 'enter_email') {
++                $this->tpl->setNotification($this->language->__('notification.enter_email'), 'error');
++            } elseif ($result === 'no_valid_email') {
++                $this->tpl->setNotification($this->language->__('notification.no_valid_email'), 'error');
++            } elseif ($result === 'user_exists') {
++                $this->tpl->setNotification($this->language->__('notification.user_exists'), 'error');
++            } elseif ($result === 'role_not_allowed') {
++                $this->tpl->setNotification($this->language->__('notification.role_not_allowed'), 'error');
++            } elseif ($result === 'enter_password') {
++                $this->tpl->setNotification($this->language->__('notification.enter_password'), 'error');
++            } elseif ($result === 'weak_password') {
++                $this->tpl->setNotification($this->language->__('notification.password_not_strong', 'Lozinka mora imati najmanje 8 znakova, veliko i malo slovo, broj i poseban znak.'), 'error');
++            } elseif ($result === 'create_failed') {
++                $this->tpl->setNotification($this->language->__('notification.user_create_failed', 'Korisnik nije mogao biti stvoren.'), 'error');
++            } else {
++                $this->tpl->setNotification('notification.user_created', 'success', 'user_created');
++            }
++        } elseif (isset($_POST['save'])) {
++            $isManager = Auth::userHasRole(Roles::$manager);
+             $values = [
+                 'firstname' => $_POST['firstname'],
+                 'lastname' => $_POST['lastname'],
