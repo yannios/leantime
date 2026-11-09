@@ -156,9 +156,17 @@ body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) a {
     display: flex;
     align-items: center;
     gap: 8px;
+    /* nav.css insets the link by 15px margin + 14px padding, so the hover and
+       active backgrounds stopped short of the panel edges. The same 30px move
+       to padding keeps the text where it was and lets the highlight run the
+       full width of the row. */
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+    width: 100%;
     font-size: 17px;
     line-height: 1.15;
-    padding: 0 15px;
+    padding: 0 12px 0 30px;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -169,13 +177,13 @@ body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) a {
 body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle a strong::before {
     content: "";
     display: inline-block;
-    width: 14px;
-    height: 14px;
-    margin-right: 7px;
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
     background-color: currentColor;
-    -webkit-mask: url("../icons/square-chevron-down.svg") center / 14px 14px no-repeat;
-    mask: url("../icons/square-chevron-down.svg") center / 14px 14px no-repeat;
-    vertical-align: -2px;
+    -webkit-mask: url("../icons/square-chevron-down.svg") center / 18px 18px no-repeat;
+    mask: url("../icons/square-chevron-down.svg") center / 18px 18px no-repeat;
+    vertical-align: -4px;
 }
 
 /* Gap between groups: the group header carries the top margin, so the gap sits
@@ -2169,4 +2177,54 @@ body .ticketBox .ticketBox,
 body .maincontent [class*="priority-border-"],
 body .maincontent [class*="commentStatus-"] {
     border-left-width: 6px !important;
+}
+
+
+/* --- Kanban: title-only cards ---------------------------------------------
+   The unfold-vertical button in the board's view menu toggles
+   body.flat-cards-titles-only (theme.js remembers the choice). Everything the
+   card carries besides its headline - project line, parent link, timer, due
+   date, status and milestone chips - is hidden, leaving a dense board that
+   reads like a list of names. */
+body.flat-cards-titles-only .ticketBox .titleContainer > *:not(strong),
+body.flat-cards-titles-only .ticketBox .timerContainer,
+body.flat-cards-titles-only .ticketBox .row + .row,
+body.flat-cards-titles-only .ticketBox .titleContainer small,
+body.flat-cards-titles-only .ticketBox .chip,
+body.flat-cards-titles-only .ticketBox .dropdownContainer {
+    display: none !important;
+}
+
+body.flat-cards-titles-only .ticketBox {
+    padding: 5px 8px !important;
+    min-height: 0 !important;
+}
+
+body.flat-cards-titles-only .ticketBox .titleContainer {
+    width: 100% !important;
+    float: none !important;
+}
+
+/* The toggle itself: sits next to the view menu, same weight as its siblings. */
+body .flat-cards-toggle {
+    display: inline-block;
+    margin-left: 6px;
+    margin-bottom: 20px;
+    vertical-align: bottom;
+    color: var(--main-font-color, #333);
+    text-decoration: none;
+}
+
+body .flat-cards-toggle .lt-ico {
+    width: 18px;
+    height: 18px;
+    margin-right: 0;
+}
+
+body .flat-cards-toggle.active .lt-ico {
+    opacity: 1;
+}
+
+body .flat-cards-toggle:not(.active) .lt-ico {
+    opacity: 0.55;
 }

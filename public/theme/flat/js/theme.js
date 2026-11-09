@@ -225,3 +225,90 @@
         return window.jQuery ? buildUrl(window.jQuery) : '';
     };
 })();
+
+/**
+ * Kanban: a title-only board.
+ *
+ * Leantime's card carries a project line, a parent link, a timer, a due date, a
+ * status chip and a milestone chip. When the board is used as an overview those
+ * are noise, so the view menu gets one more control - unfold-vertical - that
+ * flips body.flat-cards-titles-only. The stylesheet hides everything but the
+ * headline; this file only owns the button, the class and the remembered state.
+ */
+(function () {
+    'use strict';
+
+    var CLASS = 'flat-cards-titles-only';
+    var KEY = 'leantimeFlat.cardsTitlesOnly';
+    var LABEL_OFF = 'Sakrij detalje kartica';
+    var LABEL_ON = 'Prikaži detalje kartica';
+
+    function stored() {
+        try {
+            return window.localStorage.getItem(KEY) === '1';
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function paint(btn) {
+        var on = document.body.classList.contains(CLASS);
+
+        btn.classList.toggle('active', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        btn.setAttribute('title', on ? LABEL_ON : LABEL_OFF);
+        btn.setAttribute('data-tippy-content', on ? LABEL_ON : LABEL_OFF);
+    }
+
+    function install() {
+        var anchor = document.querySelector('.kanbanViewMenu');
+
+        if (!anchor) {
+            return; // not the board
+        }
+
+        var existing = document.getElementById('flatCardsToggle');
+
+        if (existing) {
+            paint(existing);
+
+            return;
+        }
+
+        var btn = document.createElement('a');
+
+        btn.id = 'flatCardsToggle';
+        btn.className = 'btn-link flat-cards-toggle';
+        btn.href = 'javascript:void(0);';
+        btn.innerHTML = '<span class="lt-ico lt-ico-unfold-vertical"></span>';
+        anchor.parentNode.insertBefore(btn, anchor.nextSibling);
+
+        btn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            var on = document.body.classList.toggle(CLASS);
+
+            try {
+                window.localStorage.setItem(KEY, on ? '1' : '0');
+            } catch (e) {
+                /* private mode: the class still applies, it just is not remembered */
+            }
+
+            paint(btn);
+        });
+
+        if (stored()) {
+            document.body.classList.add(CLASS);
+        }
+
+        paint(btn);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', install);
+    } else {
+        install();
+    }
+
+    document.addEventListener('htmx:afterSwap', install);
+})();
