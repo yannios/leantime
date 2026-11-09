@@ -163,28 +163,25 @@ body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) {
 }
 
 body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) a {
+    /* One coherent box: the 17px label sits on a 20px line, symmetric 4px padding
+       above and below give the 28px row, and flex centres icon and text against
+       that line. Margins are zero - nav.css insets the link by 15px margin +
+       14px padding, which used to keep the hover background off the panel edges;
+       the same 30px now sits in padding, so the highlight runs edge to edge. */
     display: flex;
     align-items: center;
     gap: 8px;
-    /* The row is 28px and the link fills it, so the hover/active background covers
-       the whole row instead of a 19px strip inside a 33px box. 28px is also the
-       line box, which keeps the 17px label on the row's centre line. */
-    height: 28px;
-    line-height: 28px;
-    /* nav.css insets the link by 15px margin + 14px padding, so the hover and
-       active backgrounds stopped short of the panel edges. The same 30px move
-       to padding keeps the text where it was and lets the highlight run the
-       full width of the row. */
-    margin-left: 0 !important;
-    margin-right: 0 !important;
     box-sizing: border-box;
     width: 100%;
+    height: 28px;
+    margin: 0 !important;
+    padding: 4px 12px 4px 30px;
     font-size: 17px;
-    padding: 0 12px 0 30px;
+    line-height: 20px;
     white-space: nowrap;
     overflow: hidden;
     /* 300ms and !important: main.css ships a prefers-reduced-motion block that
-       forces `transition-duration: 0.01ms !important` on * , which silently killed
+       forces `transition-duration: 0.01ms !important` on *, which silently killed
        the fade on machines with 'animation effects' off. */
     transition: background-color 300ms ease, color 300ms ease !important;
 }
