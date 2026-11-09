@@ -139,7 +139,7 @@ body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle a {
     font-size: 17px;
     font-weight: 600;
     letter-spacing: 0.3px;
-    padding: 6px 8px 6px 10px;
+    padding: 4px 8px 4px 10px;
 }
 
 body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle a strong {
@@ -157,23 +157,25 @@ body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) a {
     align-items: center;
     gap: 8px;
     font-size: 17px;
-    line-height: 1.3;
-    padding: 4px 15px;
+    line-height: 1.25;
+    padding: 2px 15px;
     white-space: nowrap;
     overflow: hidden;
 }
 
-/* Group titles share one marker: a small white square. The caret stays floated
-   to the right (nav.css), so the square rides with the label, not the row. */
+/* Group titles share one marker: Lucide's square-chevron-down, painted as a mask
+   so it takes the link colour. The collapsed/expanded caret keeps floating to the
+   right (nav.css), so this marker rides with the label, not the row. */
 body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle a strong::before {
     content: "";
     display: inline-block;
-    width: 8px;
-    height: 8px;
-    margin-right: 8px;
-    background-color: #fff;
-    border-radius: 0 !important;
-    vertical-align: 1px;
+    width: 14px;
+    height: 14px;
+    margin-right: 7px;
+    background-color: currentColor;
+    -webkit-mask: url("../icons/square-chevron-down.svg") center / 14px 14px no-repeat;
+    mask: url("../icons/square-chevron-down.svg") center / 14px 14px no-repeat;
+    vertical-align: -2px;
 }
 
 /* Gap between groups: the group header carries the top margin, so the gap sits
@@ -1978,4 +1980,109 @@ body .headmenu > li.appsLink,
 body .headmenu li:has([hx-get*="marketplaceplugins/getLatest"]),
 body .headmenu li:has([hx-get*="/notifications/news/get"]) {
     display: none !important;
+}
+
+
+/* --- Header: type and avatar ----------------------------------------------
+   The head menu carried the old 15px base size while the left menu had already
+   moved to 17px, so the two halves of the chrome disagreed. The profile bubble
+   was a circle; it holds initials, not a face, so it becomes a small rectangle. */
+body .headerinner .headmenu,
+body .headerinner .headmenu li > a,
+body .headerinner .headmenu .bigProjectSelector,
+body .headerinner .headmenu .headmenu-label,
+body .headerinner .userinfo a.profileHandler {
+    font-size: 17px;
+}
+
+body .headerinner .userinfo a.profileHandler,
+body .headerinner .userinfo a.profileHandler img,
+body .headerinner .userinfo a.profileHandler img.profilePicture,
+body .headerinner .userinfo img.lt-avatar {
+    border-radius: 2px !important;
+}
+
+/* --- Named icons for text that carries its own marker ----------------------
+   Some labels keep their icon inside the string (widget titles, the ticket
+   group headings). They use .lt-ico-<lucide name> instead of a Font Awesome
+   class, because those strings are ours and the name should say what it draws. */
+
+body .lt-ico {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.35em;
+    background-color: currentColor;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: 1em 1em;
+    mask-size: 1em 1em;
+    vertical-align: -0.15em;
+}
+
+body .lt-ico-hand {
+    -webkit-mask-image: url("../icons/hand.svg");
+    mask-image: url("../icons/hand.svg");
+}
+
+body .lt-ico-party-popper {
+    -webkit-mask-image: url("../icons/party-popper.svg");
+    mask-image: url("../icons/party-popper.svg");
+}
+
+body .lt-ico-inbox {
+    -webkit-mask-image: url("../icons/inbox.svg");
+    mask-image: url("../icons/inbox.svg");
+}
+
+body .lt-ico-target {
+    -webkit-mask-image: url("../icons/target.svg");
+    mask-image: url("../icons/target.svg");
+}
+
+body .lt-ico-clock {
+    -webkit-mask-image: url("../icons/clock.svg");
+    mask-image: url("../icons/clock.svg");
+}
+
+body .lt-ico-flame {
+    -webkit-mask-image: url("../icons/flame.svg");
+    mask-image: url("../icons/flame.svg");
+}
+
+body .lt-ico-coffee {
+    -webkit-mask-image: url("../icons/coffee.svg");
+    mask-image: url("../icons/coffee.svg");
+}
+
+body .lt-ico-calendar {
+    -webkit-mask-image: url("../icons/calendar.svg");
+    mask-image: url("../icons/calendar.svg");
+}
+
+body .lt-ico-file-text {
+    -webkit-mask-image: url("../icons/file-text.svg");
+    mask-image: url("../icons/file-text.svg");
+}
+
+body .lt-ico-timer {
+    -webkit-mask-image: url("../icons/timer.svg");
+    mask-image: url("../icons/timer.svg");
+}
+
+body .lt-ico-folder-kanban {
+    -webkit-mask-image: url("../icons/folder-kanban.svg");
+    mask-image: url("../icons/folder-kanban.svg");
+}
+
+body .lt-ico-list-checks {
+    -webkit-mask-image: url("../icons/list-checks.svg");
+    mask-image: url("../icons/list-checks.svg");
+}
+
+body .lt-ico-circle-check {
+    -webkit-mask-image: url("../icons/circle-check.svg");
+    mask-image: url("../icons/circle-check.svg");
 }
