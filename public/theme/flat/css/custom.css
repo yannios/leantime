@@ -152,10 +152,25 @@ body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle a strong {
    icon and the label always share one line and their centres line up - left to
    their own devices the inline box and a 17px label drifted apart and the row
    grew to two lines. */
+body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) {
+    /* display:block matters: as a list-item the anchor started 10px below the
+       li's top edge, so the 28px link hung out of its 28px row. */
+    display: block;
+    height: 28px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
 body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) a {
     display: flex;
     align-items: center;
     gap: 8px;
+    /* The row is 28px and the link fills it, so the hover/active background covers
+       the whole row instead of a 19px strip inside a 33px box. 28px is also the
+       line box, which keeps the 17px label on the row's centre line. */
+    height: 28px;
+    line-height: 28px;
     /* nav.css insets the link by 15px margin + 14px padding, so the hover and
        active backgrounds stopped short of the panel edges. The same 30px move
        to padding keeps the text where it was and lets the highlight run the
@@ -165,10 +180,10 @@ body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) a {
     box-sizing: border-box;
     width: 100%;
     font-size: 17px;
-    line-height: 1.15;
     padding: 0 12px 0 30px;
     white-space: nowrap;
     overflow: hidden;
+    transition: background-color 0.16s ease, color 0.16s ease;
 }
 
 /* Group titles share one marker: Lucide's square-chevron-down, painted as a mask
@@ -189,7 +204,7 @@ body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle a strong::be
 /* Gap between groups: the group header carries the top margin, so the gap sits
    above the header and not inside the list. */
 body .leftmenu .nav-tabs.nav-stacked > li.dropdown li.submenuToggle {
-    margin-top: 22px;
+    margin-top: 18px;
 }
 
 body .leftmenu .nav-tabs.nav-stacked > li.dropdown > ul.submenu:first-of-type > li.submenuToggle:first-child,
