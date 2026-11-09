@@ -4,7 +4,7 @@ Ovdje je sve što se na instalaciji razlikuje od čistog Leantimea, razdvojeno n
 
 | dio | što je | što radi nadogradnja |
 |---|---|---|
-| `patches/` | 12 unified diffova prema **v3.13.2** (242 dodana, 12 oduzetih redaka) | pregazi se → ponovno primijeni |
+| `patches/` | 13 unified diffova prema **v3.13.2** (243 dodana, 13 oduzetih redaka) | pregazi se → ponovno primijeni |
 | `theme/` + `custom/` | tema `flat` i `custom/Language/hr-HR.ini` (u forku) | **preživljava**, samo se kopira |
 
 ## Redoslijed nadogradnje
@@ -63,6 +63,7 @@ Ovdje je sve što se na instalaciji razlikuje od čistog Leantimea, razdvojeno n
 | `Widgets/…/myProjects.blade.php` | +2 −2 | ⭐ i 🗂️ → ikone |
 | `Widgets/…/welcome.blade.php` | +5 −5 | 👋 ⏱️ 🥳 📥 🎯 → ikone |
 | `Widgets/…/components/moveableWidget.blade.php` | +1 −1 | `{{ $name }}` → `{!! $name !!}` da naslov widgeta može nositi ikonu |
+| `Blueprints/…/showCanvasBottom.blade.php` | +1 −1 | `{{ $disclaimer }}` → `{!! $disclaimer !!}` — licence ploča (Strategyzer/CC) je HTML, prikazivala se kao tekst |
 
 ## Pravila da se ne ponovi današnji 500
 
@@ -80,4 +81,4 @@ Ovdje je sve što se na instalaciji razlikuje od čistog Leantimea, razdvojeno n
 - Generirano: 2026-11-09
 - Osnova: Leantime **v3.13.2** (`v3132.zip`, 2038 datoteka)
 - Izvor istine: živa instalacija `https://trames.prometnice.com`
-- Provjereno: svaka zakrpa primijenjena na svježu kopiju v3.13.2 daje **identične** datoteke živoj instalaciji
+- Provjereno: svaka zakrpa primijenjena na svježu kopiju v3.13.2 daje **identične** datoteke živoj instalaciji (13/13)

@@ -1,0 +1,11 @@
+--- a/app/Domain/Blueprints/Templates/showCanvasBottom.blade.php
++++ b/app/Domain/Blueprints/Templates/showCanvasBottom.blade.php
+@@ -18,7 +18,7 @@
+ @endif
+ 
+ @if(! empty($disclaimer) && count($allCanvas) > 0)
+-    <small class="align-center">{{ $disclaimer }}</small>
++    <small class="align-center">{!! $disclaimer !!}</small>
+ @endif
+ 
+ @include('blueprints::modals')
