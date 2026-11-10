@@ -2401,8 +2401,33 @@ body .projectBox {
     width: 100%;
 }
 
+/* Vertical centring inside a project card. The markup is one inline <a> holding
+   the avatar followed by a text run (small, <br>, strong), so there is no element
+   to align the avatar against. Taking the avatar out of the flow and centring it
+   with a transform does the job for any number of text lines: it always sits on
+   the vertical middle of the text block. The text keeps a 60px left inset where
+   the avatar used to float. */
 body .projectBox .col-md-10 > a {
+    position: relative;
     display: block;
+    min-height: 50px;
+    padding-left: 60px;
+}
+
+body .projectBox .col-md-10 > a .projectAvatar {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    float: none;
+    margin: 0;
+}
+
+/* The favourite star sits in its own column; centre it against the card. */
+body .projectBox .col-md-2 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 body .projectBox strong,
