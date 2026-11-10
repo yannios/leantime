@@ -2375,3 +2375,38 @@ body .ticketBox .projectAvatar img {
     margin: 0;
     object-fit: cover;
 }
+
+/* --- Project cards: two per row on desktop, one on narrow screens ----------
+   The hub laid the cards into four (favourites) or three (the rest) columns of a
+   ~1150px box, which left a 350px card with a 50px avatar and barely 150px for the
+   client and the project name - the name broke mid-word. Two columns give the text
+   room; below 992px a single column. */
+@media (min-width: 992px) {
+    body .maincontentinner .row > [class*="col-md-"]:has(.projectBox) {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+    }
+}
+
+@media (max-width: 991px) {
+    body .maincontentinner .row > [class*="col-md-"]:has(.projectBox) {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* The card fills its column, and the text next to the avatar gets the rest of
+   the width instead of a line box squeezed by the float. */
+body .projectBox {
+    width: 100%;
+}
+
+body .projectBox .col-md-10 > a {
+    display: block;
+}
+
+body .projectBox strong,
+body .projectBox small {
+    display: inline-block;
+    max-width: 100%;
+}
