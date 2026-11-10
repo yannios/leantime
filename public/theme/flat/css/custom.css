@@ -2435,3 +2435,26 @@ body .projectBox small {
     display: inline-block;
     max-width: 100%;
 }
+
+/* --- Project avatar in the selector dropdown -------------------------------
+   Same cause as on the project cards: nav.css sizes the image by width only
+   (.projectselector .projectAvatar img { width:30px }), so a picture that is not
+   square stays shorter than the 30px gradient tile and the tile's gradient shows
+   as a red strip above the initials. Give the tile a 30x30 flex frame and let the
+   image cover it. */
+body .projectselector ul.selectorList li.projectLineItem .projectAvatar,
+body .projectselector ul.selectorList .projectAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+body .projectselector ul.selectorList li.projectLineItem .projectAvatar img,
+body .projectselector ul.selectorList .projectAvatar img {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    object-fit: cover;
+}
