@@ -2352,3 +2352,26 @@ body .headerinner .bigProjectSelector > .fa-caret-down {
 span.projectAvatar img {
     margin-top: 0px;
 }
+
+/* --- Project card avatar ---------------------------------------------------
+   nav.css sizes only the WIDTH of that avatar image (`.projectBox
+   .projectAvatar img { width:50px }`), so a non-square PNG stays shorter than
+   the 50px gradient tile behind it and sits on the text baseline - the tile's
+   gradient showed as a strip above the initials. The box is now a 50x50 flex
+   frame with the image covering it, so picture and tile are the same square. */
+body .projectBox .projectAvatar,
+body .ticketBox .projectAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+body .projectBox .projectAvatar img,
+body .ticketBox .projectAvatar img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    object-fit: cover;
+}
