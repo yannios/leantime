@@ -443,3 +443,38 @@
         window.setTimeout(tune, 200);
     });
 })();
+
+/**
+ * user.css — the last stylesheet on the page.
+ *
+ * Anything pasted here wins against custom.css, exactly like a Stylebot rule
+ * injected at the end of the document. That is the point: CSS taken from Stylebot
+ * keeps behaving the same way while it is being tuned, and only moves into
+ * custom.css once the numbers are settled.
+ */
+(function () {
+    'use strict';
+
+    var ID = 'flat-user-css';
+
+    function attach() {
+        if (document.getElementById(ID) || !document.head) {
+            return;
+        }
+
+        var link = document.createElement('link');
+
+        link.id = ID;
+        link.rel = 'stylesheet';
+        // The query string is a cache buster: a normal F5 picks up the new file.
+        link.href = '/theme/flat/css/user.css?v=' + Date.now();
+
+        document.head.appendChild(link);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', attach);
+    } else {
+        attach();
+    }
+})();
