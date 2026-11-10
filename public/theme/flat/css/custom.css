@@ -2346,71 +2346,9 @@ body .headerinner .bigProjectSelector > .fa-caret-down {
     vertical-align: middle;
 }
 
-
-
-
-/* =========================================================================
-   PODEŠAVANJE VISINA — mijenjaj SAMO ove brojeve
-   -------------------------------------------------------------------------
-   Red lijevog menija:   --flat-menu-row  = --flat-menu-pad * 2 + --flat-menu-line
-                         28px            = 4 + 4 + 20
-   Gornja traka:         --flat-bar-h     = visina reda; sadržaj centrira flex,
-                         pa je gornji i donji odmak efektivno jednak.
-
-   Ako želiš probati bez diranja teme (Stylebot), dovoljno je ovo — varijable
-   se kaskadno nasljeđuju, pa nema borbe selektora:
-
-       body { --flat-menu-row: 30px; --flat-menu-pad: 5px; --flat-menu-line: 20px; }
-   ========================================================================= */
-:root {
-    --flat-menu-row: 28px;
-    --flat-menu-pad: 4px;
-    --flat-menu-line: 20px;
-    --flat-bar-h: 50px;
-}
-
-/* Lijevi meni: red i link iste visine, padding gore = dolje, tekst na
-   line-height. Ovo je zadnje pravilo za te elemente i pobjeđuje sve iznad. */
-body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) {
-    display: block !important;
-    height: var(--flat-menu-row) !important;
-    min-height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-body .leftmenu .nav-tabs.nav-stacked .dropdown ul li:not(.submenuToggle) a {
-    display: flex !important;
-    align-items: center !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-    height: var(--flat-menu-row) !important;
-    margin: 0 !important;
-    padding-top: var(--flat-menu-pad) !important;
-    padding-bottom: var(--flat-menu-pad) !important;
-    line-height: var(--flat-menu-line) !important;
-}
-
-/* Gornja traka: svaka stavka puna visina reda, sadržaj centriran. */
-body .headerinner .headmenu > li > a,
-body .headerinner .headmenu .profileHandler,
-body .headerinner .headmenu .bigProjectSelector {
-    display: inline-flex !important;
-    align-items: center !important;
-    height: var(--flat-bar-h) !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    line-height: 1 !important;
-}
-
-/* --- Project avatar, the way it behaved in Stylebot ------------------------
-   Equal margins above and below the 30px picture: 10 + 30 + 10 = 50, the height
-   of the bar row, so the image sits on the row's centre line. Any earlier
-   margin/inline-flex override from this theme is gone so this rule is the only
-   one describing the box. */
+/* Project avatar in the selector: nav.css gives the 30px image a 10px top margin
+   (it was aligned against a 50px line box), which drops it below the label now
+   that the row is centred. The image needs no top offset. */
 span.projectAvatar img {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 0px;
 }
