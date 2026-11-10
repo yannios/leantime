@@ -2352,3 +2352,15 @@ body .headerinner .bigProjectSelector > .fa-caret-down {
 span.projectAvatar img {
     margin-top: 0px;
 }
+
+/* The avatar wrapper carried a top margin from the 50px line-box era; inside the
+   flex chip it only pushed the image down. As an inline box it also kept the
+   image's baseline descent (37px box around a 30px picture), which put the image
+   ~3px above the label. Inline-flex makes the box exactly the image and centres
+   the two against each other. */
+span.projectAvatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0px;
+}
